@@ -1,0 +1,74 @@
+/**
+ * 普通属性css3 前缀添加
+ */
+//定义存在的浏览器前缀
+$prefix-for-webkit = true
+$prefix-for-mozilla = true
+$prefix-for-microsoft = true
+$prefix-for-opera = true
+$prefix-for-spec = true
+
+$prefixer($property, $value, $prefixes)
+  for $prefix in $prefixes
+    if $prefix == webkit && $prefix-for-webkit == true
+      -webkit-{$property}: $value
+    else if $prefix == moz && $prefix-for-mozilla == true 
+      -moz-{$property}: $value
+    else if $prefix == ms && $prefix-for-microsoft == true 
+      -ms-{$property}: $value  
+    else if $prefix == o && $prefix-for-opera == true 
+      -o-{$property}: $value  
+    else if $prefix == spec && $prefix-for-spec == true 
+      {$property}: $value
+
+$prefixerValue($property, $value, $prefixes)
+  for $prefix in $prefixes
+    if $prefix == webkit && $prefix-for-webkit == true 
+      {$property}: '-webkit-%s' % $value
+    else if $prefix == moz && $prefix-for-mozilla == true 
+      {$property}: '-moz-%s' % $value
+    else if $prefix == ms && $prefix-for-microsoft == true 
+      {$property}: '-ms-%s' % $value
+    else if $prefix == o && $prefix-for-opera == true 
+      {$property}: '-o-%s' % $value
+    else if $prefix == spec && $prefix-for-spec == true 
+      {$property}: $value
+
+
+
+// /**
+//  * keyframes 前缀
+//  */
+// $keyframes-for-webkit: true !default;
+// $keyframes-for-mozilla: false !default;
+// $keyframes-for-microsoft: true !default;
+// $keyframes-for-opera: false !default;
+// $keyframes-for-spec: true !default;
+
+// @mixin keyframes($animationName){
+//     @if $keyframes-for-webkit == true {
+//         @-webkit-keyframes #{$animationName} {
+//             @content;
+//         }
+//     }
+//     @if $keyframes-for-mozilla == true {
+//         @-moz-keyframes #{$animationName} {
+//             @content;
+//         }
+//     }
+//     @if $keyframes-for-microsoft == true {
+//         @-ms-keyframes #{$animationName} {
+//             @content;
+//         }
+//     }
+//     @if $keyframes-for-opera == true {
+//         @-o-keyframes #{$animationName} {
+//             @content;
+//         }
+//     }
+//     @if $keyframes-for-spec == true {
+//         @keyframes #{$animationName} {
+//             @content;
+//         }
+//     }
+// }

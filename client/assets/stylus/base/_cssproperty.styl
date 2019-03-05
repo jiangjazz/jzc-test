@@ -1,0 +1,63 @@
+/**
+ * css属性生产
+ */
+//盒子阴影
+$box-shadow($value)
+  $prefixer(box-shadow, $value, webkit spec)
+
+//文字阴影
+$text-shadow($value)
+  $prefixer(text-shadow, $value, webkit spec)
+
+//圆角
+$border-radius($value)
+  $prefixer(border-radius, $value, spec)
+
+//转换
+$transform($value)
+  $prefixer(transform, $value, webkit moz ms o spec)
+
+//设置转换原点
+$transform-origin($value)
+  $prefixer(transform-origin, $value, webkit moz ms o spec)
+
+//过渡
+$transition($value)
+  $prefixer(transition, $value, webkit moz ms o spec)
+
+//盒子模型
+$box-sizing($value)
+  $prefixer(box-sizing, $value, webkit moz spec)
+
+//动画
+$animation($value)
+  $prefixer(animation, $value, webkit moz ms o spec)
+
+//兼容透明度
+$opacity($value)
+  opacity: $value*0.01
+  filter : 'alpha(opacity=%s)' % $value
+
+//禁止选中文本
+$user-select($value)
+  $prefixer(user-select, $value, webkit moz ms o spec)
+
+// //渐变背景图
+// $background-image($colors, $arrow: left)
+//     @if length($colors) == 2 {
+//         @if $arrow == top
+//             background:nth($colors, 1) /* 一些不支持背景渐变的浏览器 */
+//             background-image:-moz-linear-gradient(top, nth($colors, 1), nth($colors, 2))
+//             background:-webkit-gradient(linear, 0 0, 0 bottom, from(nth($colors, 1)), to(nth($colors, 2)))
+//             background-image:-o-linear-gradient(top, nth($colors, 1), nth($colors, 2))
+        
+//         @else 
+//             background:nth($colors, 1) /* 一些不支持背景渐变的浏览器 */
+//             background-image:-moz-linear-gradient(left, nth($colors, 1), nth($colors, 2))
+//             background:-webkit-gradient(linear, 0 0, 100% 0, from(nth($colors, 1)), to(nth($colors, 2)))
+//             background-image:-o-linear-gradient(left, nth($colors, 1), nth($colors, 2))
+//     // $prefixerValue(background-image, $value, webkit moz ms o)
+
+// 动画延迟
+$animation-delay($value)
+  $prefixer(animation-delay, $value, webkit moz o spec)
