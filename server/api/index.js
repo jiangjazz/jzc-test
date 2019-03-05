@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-04 19:33:27
+ * @Last Modified time: 2019-03-05 20:56:23
  */
 const consola = require('consola')
 const Router = require('express').Router
@@ -41,8 +41,12 @@ router.use(function (req, res, next) {
     headers: ''
   }
   if (Number(xclub.status) === 200) {
-    // 存储cookie
-    req.session.xclubcookie = formatCookie(xclub.headers['set-cookie'])
+    let cookie = formatCookie(xclub.headers['set-cookie'])
+    // 如果存在auth字段，则存储cookie
+    if (cookie.indexOf('auth') >= 0) {
+      req.session.xclubcookie = cookie
+    }
+    console.log(cookie)
   }
   return res.json(xclub.data)
 })

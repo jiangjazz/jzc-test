@@ -2,19 +2,21 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:00 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-04 19:39:35
+ * @Last Modified time: 2019-03-05 21:24:11
  */
 <template>
   <v-tabs class="m-nav" :value="active" color="white" slider-color="green" fixed-tabs grow>
     <!-- <v-tab v-for="item in items" :key="item.label" :to="item.to">
       {{ item.label }}
     </v-tab> -->
-    <v-tab v-for="item in items" :key="item.label" :to="item.to">
+    <v-tab v-for="item in items" :key="item.label" :to="`${preLink}${item.to}`">
       {{ item.label }}
     </v-tab>
   </v-tabs>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -27,6 +29,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['preLink']),
       // 当前选中
     active() {
       let activeNum = 0

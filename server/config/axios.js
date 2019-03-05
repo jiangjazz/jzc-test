@@ -38,8 +38,6 @@ Axios.interceptors.request.use(function (config) {
 });
 
 Axios.interceptors.response.use(function (response) {
-  // const data = response.data;
-  // return Promise.resolve(data);
   console.log(response.data, 12341234)
   return Promise.resolve(response);
 }, function (error) {

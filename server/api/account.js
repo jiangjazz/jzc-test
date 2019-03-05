@@ -2,14 +2,12 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-04 14:06:23
+ * @Last Modified time: 2019-03-05 21:45:33
  */
 
 const Router = require('express').Router
 const axios = require('../config/axios')
 const router = Router()
-
-const formatCookie = require('../common/methods').formatCookie
 
 /**
  * 登陆
@@ -35,7 +33,17 @@ router.post('/login', (req, res, next) => {
   }
   login().then(e => {
       req.xclub = e
-      next()
+      if (Number(e.status) === 200 && Number(e.data.code) === 0) {
+        let usermsg = e.data.data.Variables || {}
+        // 存储用户信息
+        req.session.uid = usermsg.member_uid
+        req.session.usermsg = usermsg
+        next()
+      } else {
+        e.data._ssrcode = 100
+        e.data._ssrerror = e.data.msg
+        return res.json(e.data)
+      }
     })
     .catch(err => {
       return res.json(err)

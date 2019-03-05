@@ -23,14 +23,15 @@ export const actions = {
     commit
   }, {
     username,
-    password
+    password,
+    loginsubmit
   }) {
     console.log('触发登陆')
-    const res = await this.$axios.$post('/selfapi/login', {
+    return this.$axios.$post('/selfapi/login', {
       username,
-      password
+      password,
+      loginsubmit
     })
-    console.log(res, 121212112)
   },
   /**
    * 验证假登陆
@@ -41,11 +42,5 @@ export const actions = {
     console.log('触发验证登陆')
     const res = await this.$axios.$post('/selfapi/checklogin')
     console.log(res, 121212112)
-  },
-  async autologin({
-    commit,
-    dispatch
-  }, data) {
-    return Vue.prototype.$http.get('/api/mobile/index.php?version=5&module=login', data)
   }
 }
