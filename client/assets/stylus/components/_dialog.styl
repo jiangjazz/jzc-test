@@ -34,3 +34,20 @@
       color: $text-normal
       font-weight: normal
       $font-size(12px)
+
+.u-dialog.chooseCountryDialog
+  .v-chip
+    .v-chip__content
+      width: 110px
+      overflow:hidden
+      word-wrap:normal
+      white-space:nowrap
+      text-overflow:ellipsis
+      text-align: left
+      justify-content: unset
+  .placeholderItem
+    width: 110px
+  .v-chip:focus:not(.v-chip--disabled):after,
+  .v-chip--active:after,
+  .v-chip--selected:after
+    background: $main

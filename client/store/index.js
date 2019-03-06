@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 21:49:12
+ * @Last Modified time: 2019-03-06 16:13:43
  */
 /**
  * 全局store
@@ -14,14 +14,21 @@ import LangJson from '@/static/lang'
 const G_SET_DIALOG = 'setDialog'
 const G_SET_USERMSG = 'setUsermsg'
 const G_SET_POPMSG = 'setPopmsg'
+const G_SET_COUNTRY = 'setCountry'
 
 // 全局变量
 const DEFAULT_LOCALE = 'global'
 
 // state数据
 export const state = () => ({
+  // api的前缀地址，默认从nuxt.config.js读取
+  baseUrl: process.env.baseUrl || '',
+  // 自身路径
+  selfUrl: process.env.selfUrl || '',
   // 当前国家
   locale: DEFAULT_LOCALE,
+  // chooseCountry模态框是否可见
+  countryDialogVisible: true,
   // login模态框是否可见
   loginDialogVisible: false,
   // 用户id
@@ -29,7 +36,9 @@ export const state = () => ({
   // 用户信息
   usermsg: {},
   // 全局弹窗信息
-  popMessage: {}
+  popMessage: {},
+  // 当前国家信息
+  country: {}
 })
 
 // getters
@@ -37,6 +46,14 @@ export const getters = {
   // 链接上的多语言前缀
   preLink(state) {
     return state.locale === DEFAULT_LOCALE ? '' : `/${state.locale}`
+  },
+  // 用户名
+  username(state) {
+    return state.usermsg.member_username
+  },
+  // 国家id
+  countryId(state) {
+    return state.country.fid || null
   }
 }
 
@@ -62,7 +79,7 @@ export const mutations = {
     state.uid = usermsg.member_uid || null
   },
   /**
-   * 设置 全局弹窗信息
+   * 设置 全局提示信息
    * @param {object} message 
    */
   [G_SET_POPMSG](state, message) {
@@ -71,6 +88,13 @@ export const mutations = {
       type,
       msg
     }
+  },
+  /**
+   * 设置 国家信息
+   * @param {object} country 
+   */
+  [G_SET_COUNTRY](state, country) {
+    state.country = country || {}
   }
 }
 
@@ -81,8 +105,7 @@ export const actions = {
    * 从服务器端传输数据到客户端
    */
   nuxtServerInit({
-    commit,
-    dispatch
+    commit
   }, {
     req,
     redirect,
@@ -93,6 +116,10 @@ export const actions = {
   }) {
     console.log('服务器初始化')
     console.log(req.session)
+    // 从路由获取当前国家
+    let lang = LangJson[params.lang] ? params.lang : DEFAULT_LOCALE
+    commit(G_SET_COUNTRY, LangJson[lang])
+
     if (req.session) {
       // 判定是否存在个人usermsg
       if (req.session.usermsg) {
@@ -112,13 +139,13 @@ export const actions = {
   }) {
     // 所有dialog集合
     let dialogs = {
-      // countryDialogVisible: false,
+      countryDialogVisible: false,
       loginDialogVisible: false
     }
     switch (dialog) {
-      // case 'country':
-      //   dialogs.countryDialogVisible = true
-      //   break
+      case 'country':
+        dialogs.countryDialogVisible = true
+        break
       case 'login':
         dialogs.loginDialogVisible = true
         break

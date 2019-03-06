@@ -28,7 +28,7 @@ export const actions = {
     loginsubmit
   }) {
     console.log('触发 登陆')
-    return this.$axios.$post('/selfapi/login', {
+    return this.$axios.$post('/selfapi/account/login', {
       username,
       password,
       loginsubmit
@@ -41,7 +41,7 @@ export const actions = {
     commit
   }) {
     console.log('触发 验证登陆')
-    const res = await this.$axios.$post('/selfapi/checklogin')
+    const res = await this.$axios.$post('/selfapi/account/checklogin')
     console.log(res, 121212112)
   },
   /**
@@ -51,6 +51,6 @@ export const actions = {
     commit
   }) {
     console.log('触发 退出登陆')
-    return this.$axios.$post('/selfapi/logout')
+    return this.$axios.$post('/selfapi/account/logout')
   }
 }

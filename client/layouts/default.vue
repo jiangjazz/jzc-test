@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:13 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 18:15:10
+ * @Last Modified time: 2019-03-06 15:54:28
  */
 <template>
   <v-app>
@@ -19,6 +19,7 @@
 
     <!-- 弹窗 -->
     <LoginDialog />
+    <ChooseCountryDialog />
     <!-- 弹窗 end-->
 
     <!-- 全局提示信息框 -->
@@ -29,11 +30,13 @@
 
 <script>
 import LoginDialog from '~/components/dialog/Login'
+import ChooseCountryDialog from '~/components/dialog/ChooseCountry'
 import Popmsg from '~/components/common/Popmsg'
 
 export default {
   components: {
     LoginDialog,
+    ChooseCountryDialog,
     Popmsg
   }
 }

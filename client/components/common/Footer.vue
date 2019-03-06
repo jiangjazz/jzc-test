@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 12:49:25
+ * @Last Modified time: 2019-03-06 13:46:47
  */
 <template>
   <v-footer :class="className" :fixed="false" dark height="150">
@@ -11,7 +11,7 @@
         <v-layout row justify-center :reverse="false" fill-height :class="`${className}_action`">
           <v-btn flat small class="item" :to="`${preLink}/`">Home</v-btn>
           <template v-if="uid">
-            <v-btn flat small class="item">{{ usermsg.member_username }}</v-btn>
+            <v-btn flat small class="item">{{ username }}</v-btn>
             <v-btn flat small class="item" @click.stop="logout">Logout</v-btn>
           </template>
           <template v-else>
@@ -43,8 +43,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['uid', 'usermsg']),
-    ...mapGetters(['preLink'])
+    ...mapState(['uid']),
+    ...mapGetters(['preLink', 'username'])
   },
   methods: {
     // 点击-显示登陆界面

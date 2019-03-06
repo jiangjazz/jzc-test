@@ -2,15 +2,11 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 12:52:24
+ * @Last Modified time: 2019-03-06 14:19:58
  */
 
 const Router = require('express').Router
-const axios = require('../config/axios')
 const router = Router()
-
-const consola = require('consola')
-
 const APIS = require('../config/api')
 
 /**
@@ -19,7 +15,7 @@ const APIS = require('../config/api')
  * @param {string} password 密码
  * @param {string} loginsubmit 是否记住密码， type: yes | no
  */
-router.post('/login', (req, res, next) => {
+router.post('/account/login', (req, res, next) => {
   let {
     username,
     password,
@@ -54,7 +50,7 @@ router.post('/login', (req, res, next) => {
 /**
  * 验证是否登陆，若已登陆则返还个人信息
  */
-router.post('/checklogin', (req, res, next) => {
+router.post('/account/checklogin', (req, res, next) => {
 
   APIS.ACCOUNT_CHECKLOGIN().then(e => {
       // 挂载信息并传递
@@ -70,7 +66,7 @@ router.post('/checklogin', (req, res, next) => {
 /**
  * 退出登陆
  */
-router.post('/logout', (req, res, next) => {
+router.post('/account/logout', (req, res, next) => {
 
   APIS.ACCOUT_LOGOUT().then(e => {
       // 清除个人信息

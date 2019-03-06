@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-05 09:35:35 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 20:56:49
+ * @Last Modified time: 2019-03-06 14:29:22
  */
 <template>
   <v-dialog content-class="u-dialog loginDialog" v-model="visible" max-width="400" :fullscreen="false">
@@ -87,6 +87,14 @@ export default {
       this.reset()
       this.$store.commit('setDialog', { loginDialogVisible: false })
     },
+    // 重置表单
+    reset() {
+      this.$refs.loginForm.reset()
+    },
+    // 重置报错信息
+    resetValidation() {
+      this.$refs.loginForm.resetValidation()
+    },
     // 登陆
     login() {
       console.log('验证')
@@ -105,6 +113,10 @@ export default {
           this.loading = false
           if (Number(res.code) === 0) {
             this.$store.commit('setUsermsg', res.data.Variables)
+            this.$store.commit('setPopmsg', {
+              type: 'success',
+              msg: res.msg
+            })
             this.close()
           }
         })
@@ -112,14 +124,6 @@ export default {
           this.loading = false
         })
       // }
-    },
-    // 重置表单
-    reset() {
-      this.$refs.loginForm.reset()
-    },
-    // 重置报错信息
-    resetValidation() {
-      this.$refs.loginForm.resetValidation()
     }
   }
 }

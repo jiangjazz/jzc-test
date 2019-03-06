@@ -1,6 +1,12 @@
 const Axios = require('./axios')
 
 /**
+ * 通用
+ */
+// 获取国家列表
+const COMMON_GETCOUNTRYLIST = params => Axios.get('/plugin.php?id=countrys&country=1')
+
+/**
  * 账户 相关
  */
 // 登陆
@@ -12,6 +18,9 @@ const ACCOUT_LOGOUT = params => Axios.get('/api/mobile/index.php?version=4&modul
 
 
 module.exports = {
+  //
+  COMMON_GETCOUNTRYLIST,
+  //
   ACCOUNT_LOGIN,
   ACCOUNT_CHECKLOGIN,
   ACCOUT_LOGOUT

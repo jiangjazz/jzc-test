@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-05 18:12:28 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 19:50:29
+ * @Last Modified time: 2019-03-06 13:37:37
  */
 <template>
   <v-snackbar v-model="showSnackbar" @close="close" :bottom="y === 'bottom'" :left="x === 'left'" :multi-line="mode === 'multi-line'"
@@ -22,7 +22,7 @@ export default {
       y: 'top',
       x: null,
       mode: 'multi-line',
-      timeout: 3000
+      timeout: 0
     }
   },
   computed: {
