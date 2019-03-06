@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:00 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 21:24:11
+ * @Last Modified time: 2019-03-06 17:10:48
  */
 <template>
   <v-tabs class="m-nav" :value="active" color="white" slider-color="green" fixed-tabs grow>
@@ -15,7 +15,7 @@
   </v-tabs>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -29,13 +29,19 @@ export default {
     }
   },
   computed: {
+    ...mapState(['locale']),
     ...mapGetters(['preLink']),
       // 当前选中
     active() {
       let activeNum = 0
-      let { path } = this.$route
+      let { path, params: {lang = 'global'} } = this.$route
+      let finalPath = path
+      console.log(lang, path, 888888, this.locale)
+      if ( lang !== 'global' ) {
+        finalPath.replace()
+      }
       this.items.some((item, index) => {
-        if ( path.indexOf(item.to) >= 0 ) {
+        if ( finalPath.indexOf(item.to) === 0 ) {
           activeNum = index
           return true
         } else {

@@ -1,6 +1,6 @@
 {
   "name": "jzc-test",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Jazz test nuxt project",
   "author": "Jazz Jiang",
   "private": true,
@@ -20,6 +20,7 @@
     "express-session": "^1.15.6",
     "nuxt": "^2.4.0",
     "qs": "^6.6.0",
+    "vue-i18n": "^8.8.2",
     "vuetify": "^1.5.0",
     "vuetify-loader": "^1.2.0"
   },

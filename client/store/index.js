@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 16:13:43
+ * @Last Modified time: 2019-03-06 17:13:56
  */
 /**
  * 全局store
@@ -28,7 +28,7 @@ export const state = () => ({
   // 当前国家
   locale: DEFAULT_LOCALE,
   // chooseCountry模态框是否可见
-  countryDialogVisible: true,
+  countryDialogVisible: false,
   // login模态框是否可见
   loginDialogVisible: false,
   // 用户id
@@ -60,6 +60,14 @@ export const getters = {
 // 同步方法
 export const mutations = {
   /**
+   * 设置 国家信息
+   * @param {object} country 
+   */
+  [G_SET_COUNTRY](state, country) {
+    state.country = country || {}
+    state.locale = country.route
+  },
+  /**
    * 设置模态框是否可见
    * @param {obj} dialogs -> 弹窗对象
    */
@@ -89,13 +97,6 @@ export const mutations = {
       msg
     }
   },
-  /**
-   * 设置 国家信息
-   * @param {object} country 
-   */
-  [G_SET_COUNTRY](state, country) {
-    state.country = country || {}
-  }
 }
 
 // 异步方法
