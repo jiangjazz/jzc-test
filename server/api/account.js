@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 21:45:33
+ * @Last Modified time: 2019-03-06 11:45:48
  */
 
 const Router = require('express').Router
@@ -66,6 +66,28 @@ router.post('/checklogin', (req, res, next) => {
       // return res.json(e.data)
       req.xclub = e
       next()
+    })
+    .catch(err => {
+      return res.json(err)
+    })
+})
+
+
+/**
+ * 退出登陆
+ */
+router.post('/logout', (req, res, next) => {
+
+  async function checkLogin() {
+    const response = await axios({
+      method: 'get',
+      url: '/api/mobile/index.php?version=4&module=logout'
+    })
+    return response
+  }
+  checkLogin().then(e => {
+      delete req.session.xclubcookie
+      return res.json(e.data)
     })
     .catch(err => {
       return res.json(err)

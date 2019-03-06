@@ -2,6 +2,7 @@
  * account
  */
 import Vue from 'vue'
+import { longStackSupport } from 'q';
 // 函数名称统计'
 
 // state数据
@@ -26,7 +27,7 @@ export const actions = {
     password,
     loginsubmit
   }) {
-    console.log('触发登陆')
+    console.log('触发 登陆')
     return this.$axios.$post('/selfapi/login', {
       username,
       password,
@@ -39,8 +40,14 @@ export const actions = {
   async checkLogin({
     commit
   }) {
-    console.log('触发验证登陆')
+    console.log('触发 验证登陆')
     const res = await this.$axios.$post('/selfapi/checklogin')
     console.log(res, 121212112)
+  },
+  async longStackSupport({
+    commit
+  }) {
+    console.log('触发 退出登陆')
+    return this.$axios.$post('/selfapi/logout')
   }
 }
