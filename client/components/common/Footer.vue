@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 16:52:58
+ * @Last Modified time: 2019-03-06 17:33:08
  */
 <template>
   <v-footer :class="className" :fixed="false" dark height="150">
@@ -22,8 +22,8 @@
       </v-flex>
       <v-flex xs12 :class="`${className}_country`">
         <v-layout row justify-center >
-          <img class="ctyPic" src="http://xclub.pre.transsion.net/data/attachment/forum/201801/12/021801kdaahyrr231381hz.png" alt="">
-          <span @click.stop="showChooseCountry">Global</span>
+          <img class="ctyPic" :src="`${baseUrl}/${country.icon}`" alt="">
+          <span @click.stop="showChooseCountry">{{ country.country }}</span>
         </v-layout>
       </v-flex>
       <v-flex xs12 :class="`${className}_copyRight`">
@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['uid']),
+    ...mapState(['baseUrl', 'uid', 'country']),
     ...mapGetters(['preLink', 'username'])
   },
   methods: {
