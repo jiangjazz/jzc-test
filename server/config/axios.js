@@ -45,4 +45,66 @@ Axios.interceptors.response.use(function (response) {
 });
 
 // export default Axios;
-module.exports = Axios
+// module.exports = Axios
+module.exports = {
+  axios: Axios,
+  //Post  请求方式
+  post(url, params = {}, config = {}) {
+    return new Promise((resolve, reject) => {
+      Axios.post(url, params, config).then(response => {
+          resolve(response);
+        }, err => {
+          reject(err);
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+
+  //GET 请求方式
+  get(url, params = {}) {
+    return new Promise((resolve, reject) => {
+      Axios.get(url, {
+          params: params
+        }).then(response => {
+          resolve(response);
+        }, err => {
+          reject(err);
+        })
+        .catch((error) => {
+          reject(error)
+        });
+    })
+
+  },
+
+  patch(url, params = {}) {
+    return new Promise((resolve, reject) => {
+      Axios.patch(url, params).then(response => {
+          resolve(response);
+        }, err => {
+          reject(err)
+        })
+        .catch((error) => {
+          reject(error)
+        });
+    })
+  },
+
+  put(url, params = {}) {
+    return new Promise((resolve, reject) => {
+      Axios.put(url, {
+          params: params
+        }).then(response => {
+          resolve(response);
+        }, err => {
+          reject(err);
+        })
+        .catch((error) => {
+          reject(error)
+        });
+    })
+
+  }
+}

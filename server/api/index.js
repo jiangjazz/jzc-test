@@ -2,12 +2,12 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 20:56:23
+ * @Last Modified time: 2019-03-06 11:58:47
  */
 const consola = require('consola')
 const Router = require('express').Router
 const router = Router()
-const axios = require('../config/axios')
+const axios = require('../config/axios').axios
 const formatCookie = require('../common/methods').formatCookie
 
 const common = require('./common')

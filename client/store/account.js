@@ -44,7 +44,10 @@ export const actions = {
     const res = await this.$axios.$post('/selfapi/checklogin')
     console.log(res, 121212112)
   },
-  async longStackSupport({
+  /**
+   * 退出登陆
+   */
+  async logout({
     commit
   }) {
     console.log('触发 退出登陆')

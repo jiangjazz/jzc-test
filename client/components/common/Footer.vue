@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 11:33:57
+ * @Last Modified time: 2019-03-06 12:49:25
  */
 <template>
   <v-footer :class="className" :fixed="false" dark height="150">
@@ -12,7 +12,7 @@
           <v-btn flat small class="item" :to="`${preLink}/`">Home</v-btn>
           <template v-if="uid">
             <v-btn flat small class="item">{{ usermsg.member_username }}</v-btn>
-            <v-btn flat small class="item">Logout</v-btn>
+            <v-btn flat small class="item" @click.stop="logout">Logout</v-btn>
           </template>
           <template v-else>
             <v-btn flat small class="item">Register</v-btn>
@@ -50,6 +50,18 @@ export default {
     // 点击-显示登陆界面
     showLogin() {
       this.$store.dispatch('showDialog', {dialog: 'login'})
+    },
+    // 点击-退出登陆
+    logout() {
+      this.$store.dispatch('account/logout')
+        .then(res => {
+          // 清除个人信息并提示
+          this.$store.commit('setUsermsg', {})
+          this.$store.commit('setPopmsg', {
+            type: 'success',
+            msg: res.msg
+          })
+        })
     }
   }
 }
