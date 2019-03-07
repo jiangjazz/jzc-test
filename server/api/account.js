@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 14:19:58
+ * @Last Modified time: 2019-03-07 15:05:27
  */
 
 const Router = require('express').Router
@@ -27,6 +27,7 @@ router.post('/account/login', (req, res, next) => {
       username,
       password
     }).then(e => {
+
       if (Number(e.status) === 200 && Number(e.data.code) === 0) {
         let usermsg = e.data.data.Variables || {}
         // 存储用户信息
@@ -43,6 +44,9 @@ router.post('/account/login', (req, res, next) => {
       }
     })
     .catch(err => {
+      console.log(err, '最终报错')
+      err._ssrcode = err.status || 500
+      err._ssrerror = err.msg || 'Server error'
       return res.json(err)
     })
 })
@@ -52,10 +56,22 @@ router.post('/account/login', (req, res, next) => {
  */
 router.post('/account/checklogin', (req, res, next) => {
 
-  APIS.ACCOUNT_CHECKLOGIN().then(e => {
-      // 挂载信息并传递
-      req.xclub = e
-      next()
+  APIS.ACCOUNT_CHECKLOGIN({
+      cache: true
+    }).then(e => {
+
+      console.log(e.status, e.data, 'process')
+      if (Number(e.status) === 200 && Number(e.data.code) === 0) {
+        // 挂载信息并传递
+        req.xclub = e
+        next()
+      } else {
+        // 清除个人信息
+        delete req.session.xclubcookie
+        delete req.session.uid
+        delete req.session.usermsg
+        return res.json(e.data)
+      }
     })
     .catch(err => {
       return res.json(err)

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const api = require('./api')
-const redisOptions = require('./config/redis')
+const redisOptions = require('./config/index').redisOptions
 
 const {
   Nuxt,

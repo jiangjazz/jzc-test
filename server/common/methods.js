@@ -1,7 +1,8 @@
 /**
  * 生成cookie字符串
  */
-function formatCookie(cookieArr) {
+function formatCookie(setCookie) {
+  let cookieArr = setCookie ? setCookie : []
   let str = '' 
   let arr = cookieArr.map(item => {
     return item.split(';')[0] || ''

@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 11:58:47
+ * @Last Modified time: 2019-03-07 15:29:23
  */
 const consola = require('consola')
 const Router = require('express').Router
@@ -20,6 +20,7 @@ const order = require('./order')
  * 自动发送cookie
  */
 router.use(function (req, res, next) {
+  console.log('before')
   let xclubcookie = req.session.xclubcookie
   if (xclubcookie) {
     axios.defaults.headers.Cookie = xclubcookie
@@ -37,18 +38,17 @@ router.use(order)
  * 自动保存API设置的cookie
  */
 router.use(function (req, res, next) {
-  let xclub = req.xclub || {
-    headers: ''
-  }
-  if (Number(xclub.status) === 200) {
-    let cookie = formatCookie(xclub.headers['set-cookie'])
+  console.log('after')
+  let headers = req.xclub.headers || {}
+  if (Number(req.xclub.status) === 200) {
+    let cookie = formatCookie(headers['set-cookie'])
     // 如果存在auth字段，则存储cookie
     if (cookie.indexOf('auth') >= 0) {
       req.session.xclubcookie = cookie
     }
     console.log(cookie)
   }
-  return res.json(xclub.data)
+  return res.json(req.xclub.data)
 })
 
 module.exports = router
