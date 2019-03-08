@@ -2,13 +2,12 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:13 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 15:54:28
+ * @Last Modified time: 2019-03-07 16:34:36
  */
-<template>
+<template class="layout-default">
   <v-app>
-
     <!-- 主体内容 -->
-    <v-content class="layout-default">
+    <v-content>
       <nuxt />
     </v-content>
     <!-- 主体内容 end-->

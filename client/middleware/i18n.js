@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-06 16:41:31 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 16:51:07
+ * @Last Modified time: 2019-03-08 09:54:08
  */
 /* eslint-disable */
 import LangJson from '~/static/lang'
@@ -34,8 +34,15 @@ export default function ({
     })
   }
   // console.log(1111, paramsLocale, locale, route.fullPath)
-  if (paramsLocale !== locale) {
-    // console.log(1111111111)
-    store.commit('setCountry', LangJson[paramsLocale])
+  if (params.lang === 'global') {
+    let str = route.fullPath.replace('/global', '')
+    // 空路由不会触发跳转，必须为 /
+    str = str === '' ? '/' : str
+    return redirect(str)
+  } else {
+    if (paramsLocale !== locale) {
+      // console.log(1111111111)
+      store.commit('setCountry', LangJson[paramsLocale])
+    }
   }
 }

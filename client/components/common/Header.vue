@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:49:07 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 21:27:13
+ * @Last Modified time: 2019-03-08 10:24:36
  */
 <template>
   <v-toolbar :class="className" :clipped-left="false">
@@ -33,10 +33,15 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
+  props: {
+    // 标题
+    title: {
+      type: String,
+      default: 'Infinix'
+    }
+  },
   data() {
     return {
-      // 标题
-      title: 'Infinix',
       // 组件的classname
       className: 'm-header'
     }
@@ -50,9 +55,6 @@ export default {
     showLogin() {
       this.$store.dispatch('showDialog', {dialog: 'login'})
     }
-  },
-  mounted () {
-    console.log(this.preLink)
   }
 }
 </script>

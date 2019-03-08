@@ -2,12 +2,11 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 17:13:56
+ * @Last Modified time: 2019-03-08 10:25:08
  */
 /**
  * 全局store
  */
-import Vue from 'vue'
 import LangJson from '@/static/lang'
 
 // 函数名称统计

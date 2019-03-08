@@ -1,10 +1,10 @@
 <template>
-  <v-container class="page-index">
+  <div class="page-index">
     <AppHeader />
     <AppNav />
 
-    <div>
+    <v-container>
       test2
-    </div>
-  </v-container>
+    </v-container>
+  </div>
 </template>

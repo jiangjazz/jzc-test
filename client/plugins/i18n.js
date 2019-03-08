@@ -1,8 +1,8 @@
 /*
  * @Author: Janzen 
  * @Date: 2019-03-06 16:38:35 
- * @Last Modified by:   Janzen 
- * @Last Modified time: 2019-03-06 16:38:35 
+ * @Last Modified by: Janzen
+ * @Last Modified time: 2019-03-08 09:27:43
  */
 /* eslint-disable */
 import Vue from 'vue'
@@ -30,5 +30,4 @@ export default ({
     fallbackLocale: 'global',
     messages
   })
-  console.log(app.i18n.locale, 9919191919119)
 }

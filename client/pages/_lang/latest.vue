@@ -1,12 +1,13 @@
 <template>
-  <v-container class="page-index">
+  <div class="page-index">
     <AppHeader />
     <AppNav />
-
-    <v-layout justify-center>
-      <v-btn type="success" @click.stop="checkLogin">CheckLogin</v-btn>
-    </v-layout>
-  </v-container>
+    <v-container>
+      <v-layout justify-center>
+        <v-btn type="success" @click.stop="checkLogin">CheckLogin</v-btn>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 <script>
 export default {

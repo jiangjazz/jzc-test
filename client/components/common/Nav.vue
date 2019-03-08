@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:00 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 17:10:48
+ * @Last Modified time: 2019-03-08 10:23:42
  */
 <template>
   <v-tabs class="m-nav" :value="active" color="white" slider-color="green" fixed-tabs grow>
@@ -34,14 +34,9 @@ export default {
       // 当前选中
     active() {
       let activeNum = 0
-      let { path, params: {lang = 'global'} } = this.$route
-      let finalPath = path
-      console.log(lang, path, 888888, this.locale)
-      if ( lang !== 'global' ) {
-        finalPath.replace()
-      }
+      let { path } = this.$route
       this.items.some((item, index) => {
-        if ( finalPath.indexOf(item.to) === 0 ) {
+        if ( path.indexOf(item.to) === 0 ) {
           activeNum = index
           return true
         } else {
