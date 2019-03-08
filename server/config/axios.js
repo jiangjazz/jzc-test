@@ -65,11 +65,12 @@ module.exports = {
   axios: Axios,
   //Post  请求方式
   post(url, paramsObj = {}) {
-    console.log('post')
+    console.log('post', paramsObj)
 
     let key
     let {
       cache,
+      maxAge,
       ...params
     } = paramsObj
     if (cache) {
@@ -92,7 +93,7 @@ module.exports = {
           console.log('promise success')
 
           if (cache) {
-            CACHED.set(key, response.data)
+            CACHED.set(key, response.data, maxAge)
           }
           resolve(response);
         }, err => {
@@ -108,11 +109,12 @@ module.exports = {
 
   //GET 请求方式
   get(url, paramsObj = {}) {
-    console.log('get')
+    console.log('get', paramsObj)
 
     let key
     let {
       cache,
+      maxAge,
       ...params
     } = paramsObj
     if (cache) {
@@ -134,7 +136,7 @@ module.exports = {
         }).then(response => {
 
           if (cache) {
-            CACHED.set(key, response.data)
+            CACHED.set(key, response.data, maxAge)
           }
           resolve(response);
         }, err => {

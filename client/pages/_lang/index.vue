@@ -2,16 +2,17 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:53:34 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 14:30:33
+ * @Last Modified time: 2019-03-08 15:47:38
  */
 <template>
-  <div class="page-index">
+  <div class="page-home">
     <AppHeader />
     <AppNav />
     <v-container>
       <v-layout column justify-center align-center>
         <v-flex xs12 sm8 md6>
           <div class="text-xs-center">
+            <HomeBanner />
             {{ bannerList }}
           </div>
           <v-card>
@@ -47,8 +48,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import HomeBanner from '~/components/home/Banner'
 
 export default {
+  components: {
+    HomeBanner
+  },
   async fetch({store, query}) {
     await store.dispatch('home/getBannerList')
   },

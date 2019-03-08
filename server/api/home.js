@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-08 10:46:16 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 14:46:36
+ * @Last Modified time: 2019-03-08 16:21:47
  */
 
 const Router = require('express').Router
@@ -19,7 +19,8 @@ router.post('/home/getbanner', (req, res, next) => {
   } = req.body
 
   APIS.HOME_GETBANNER({
-      // catch: true,
+      cache: true,
+      maxAge: 1000 * 60,
       fid
     }).then(e => {
 
@@ -52,7 +53,7 @@ router.post('/home/getrecomlist', (req, res, next) => {
   } = req.body
 
   APIS.HOME_GETRECOMLIST({
-      // catch: true,
+      cache: true,
       fid,
       page
     }).then(e => {

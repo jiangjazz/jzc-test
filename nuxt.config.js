@@ -114,7 +114,7 @@ module.exports = {
     proxy: {
       '/selfapi': `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3000}`
     },
-    debug: true,
+    debug: false,
     retry: {
       retries: 3
     },

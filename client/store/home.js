@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-07 16:48:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 12:17:49
+ * @Last Modified time: 2019-03-08 15:32:06
  */
 
 /**
@@ -54,7 +54,6 @@ export const actions = {
   }) {
     let { fid } = rootGetters
     const res = await this.$axios.$post('/selfapi/home/getbanner', { fid })
-    console.log(res)
     if (Number(res.success) === 1) {
       commit(HOME_SET_BANNER, res.lists)
     }
