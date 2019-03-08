@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 17:33:08
+ * @Last Modified time: 2019-03-08 10:27:13
  */
 <template>
   <v-footer :class="className" :fixed="false" dark height="150">
@@ -11,7 +11,7 @@
         <v-layout row justify-center :reverse="false" fill-height :class="`${className}_action`">
           <v-btn flat small class="item" :to="`${preLink}/`">Home</v-btn>
           <template v-if="uid">
-            <v-btn flat small class="item">{{ username }}</v-btn>
+            <v-btn flat small class="item" :to="`${preLink}/ucenter`">{{ username }}</v-btn>
             <v-btn flat small class="item" @click.stop="logout">Logout</v-btn>
           </template>
           <template v-else>

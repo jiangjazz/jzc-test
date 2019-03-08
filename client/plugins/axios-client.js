@@ -2,20 +2,24 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 15:02:11 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-05 19:35:51
+ * @Last Modified time: 2019-03-08 14:30:15
  */
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
 /**
  * axios配置
  */
+const qs = require('qs')
+
 export default function ({
   $axios,
   redirect,
   store
 }) {
+  $axios.defaults.headers = {
+    'Content-Type': 'application/json;charset=utf-8'
+  }
   $axios.onRequest(config => {
-    console.log('Making request to ', config)
+    // console.log('Making request to ', config)
+    return config
   })
   $axios.onResponse(res => {
     let data = res.data

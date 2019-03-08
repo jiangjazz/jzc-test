@@ -16,12 +16,22 @@ const ACCOUNT_CHECKLOGIN = params => Axios.get('/api/mobile/index.php?version=5&
 // 退出登陆
 const ACCOUT_LOGOUT = params => Axios.get('/api/mobile/index.php?version=4&module=logout', params)
 
+/**
+ * 首页
+ */
+// 首页banner
+const HOME_GETBANNER = params => Axios.post('/plugin.php?id=banners_manage', params)
+// 首页推荐帖子
+const HOME_GETRECOMLIST = params => Axios.post('/plugin.php?id=recom_threads', params)
 
 module.exports = {
-  //
+  // 通用
   COMMON_GETCOUNTRYLIST,
-  //
+  // 账户
   ACCOUNT_LOGIN,
   ACCOUNT_CHECKLOGIN,
-  ACCOUT_LOGOUT
+  ACCOUT_LOGOUT,
+  // 首页
+  HOME_GETBANNER,
+  HOME_GETRECOMLIST,
 }

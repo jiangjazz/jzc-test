@@ -2,13 +2,12 @@
  * @Author: Janzen 
  * @Date: 2019-03-06 14:18:01 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 15:34:55
+ * @Last Modified time: 2019-03-08 11:05:56
  */
 
 /**
  * 国家列表
  */
-import Vue from 'vue'
 
 // 函数名称统计
 const COUNTRYLIST_SET = 'setCountryList'

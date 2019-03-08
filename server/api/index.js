@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-07 15:29:23
+ * @Last Modified time: 2019-03-08 10:46:59
  */
 const consola = require('consola')
 const Router = require('express').Router
@@ -11,10 +11,8 @@ const axios = require('../config/axios').axios
 const formatCookie = require('../common/methods').formatCookie
 
 const common = require('./common')
-const session = require('./session')
 const account = require('./account')
-const good = require('./good')
-const order = require('./order')
+const home = require('./home')
 
 /**
  * 自动发送cookie
@@ -29,10 +27,8 @@ router.use(function (req, res, next) {
 })
 
 router.use(common)
-router.use(session)
 router.use(account)
-router.use(good)
-router.use(order)
+router.use(home)
 
 /**
  * 自动保存API设置的cookie

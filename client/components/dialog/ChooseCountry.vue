@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-06 13:40:08 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 16:36:45
+ * @Last Modified time: 2019-03-08 11:22:22
  */
 <template>
   <v-dialog content-class="u-dialog chooseCountryDialog" v-model="visible" max-width="360" scrollable>
@@ -20,7 +20,7 @@
       <v-card-text>
         <v-layout class="text-xs-center" row justify-center wrap>
           <v-flex v-for="item in sortCountryList" :key="item.fid" grow>
-            <v-chip color="#f1f1f1" :selected="Number(item.fid) === Number(countryId)" @click="setCountry(item)">
+            <v-chip color="#f1f1f1" :selected="Number(item.fid) === Number(fid)" @click="setCountry(item)">
               <v-avatar>
                 <img :src="`${baseUrl}/${item.icon}`" :alt="`${item.country}`">
               </v-avatar>
@@ -52,7 +52,7 @@ export default {
   computed: {
     ...mapState(['baseUrl', 'country']),
     ...mapState('country', ['countryList']),
-    ...mapGetters(['countryId']),
+    ...mapGetters(['fid']),
     // 排序后的国家列表
     sortCountryList() {
       let arr = []

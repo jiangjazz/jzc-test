@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-12-27 10:02:23 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-06 14:24:49
+ * @Last Modified time: 2019-03-08 10:53:09
  */
 /**
  * 通用信息
@@ -17,6 +17,7 @@ const APIS = require('../config/api')
 router.post('/common/getcoutrylist', (req, res, next) => {
 
   APIS.COMMON_GETCOUNTRYLIST().then(e => {
+
       if (Number(e.status) === 200 && Number(e.data.success) === 1) {
         // 挂载信息并传递
         req.xclub = e
@@ -29,6 +30,7 @@ router.post('/common/getcoutrylist', (req, res, next) => {
       }
     })
     .catch(err => {
+
       return res.json(err)
     })
 })

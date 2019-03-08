@@ -2,7 +2,6 @@
  * axios配置
  */
 
-// import * as axios from 'axios'
 const axios = require('axios')
 const nuxtConfig = require('../../nuxt.config')
 const qs = require('qs')
@@ -15,13 +14,10 @@ let options = {
   timeout: 5000
 }
 
-const headers = {
-  // 'Accept': 'application/json;charset=utf-8',
+axios.defaults.headers = {
+  'Accept': 'application/json;charset=utf-8',
   'Content-Type': 'application/x-www-form-urlencoded'
-  // 'Content-Type': 'application/json;charset=utf-8'
-};
-
-axios.defaults.headers = headers;
+}
 
 const Axios = axios.create(options)
 
@@ -33,15 +29,17 @@ Axios.interceptors.request.use(function (config) {
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
+  // console.log(config, 12312312321)
   return config
 }, function (error) {
+
   // 对请求错误做些什么
   return Promise.reject(error);
 });
 
 Axios.interceptors.response.use(function (response) {
+  
   console.log('返还数据')
-  // console.log(response.data, 12341234)
   return Promise.resolve(response);
 }, function (error) {
   console.log('返还数据 出错', error, 1231231, error.response)

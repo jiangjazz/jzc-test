@@ -1,8 +1,6 @@
 /**
  * account
  */
-import Vue from 'vue'
-import { longStackSupport } from 'q';
 // 函数名称统计'
 
 // state数据

@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 10:25:08
+ * @Last Modified time: 2019-03-08 11:22:36
  */
 /**
  * 全局store
@@ -51,7 +51,7 @@ export const getters = {
     return state.usermsg.member_username
   },
   // 国家id
-  countryId(state) {
+  fid(state) {
     return state.country.fid || null
   }
 }
@@ -115,7 +115,7 @@ export const actions = {
     Url
   }) {
     console.log('服务器初始化')
-    console.log(req.session)
+    // console.log(req.session)
     // 从路由获取当前国家
     let lang = LangJson[params.lang] ? params.lang : DEFAULT_LOCALE
     commit(G_SET_COUNTRY, LangJson[lang])

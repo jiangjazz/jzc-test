@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:53:34 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-07 16:34:43
+ * @Last Modified time: 2019-03-08 14:30:33
  */
 <template>
   <div class="page-index">
@@ -12,8 +12,7 @@
       <v-layout column justify-center align-center>
         <v-flex xs12 sm8 md6>
           <div class="text-xs-center">
-            <logo />
-            <vuetify-logo />
+            {{ bannerList }}
           </div>
           <v-card>
             <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
@@ -47,13 +46,17 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import { mapState } from 'vuex'
 
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  async fetch({store, query}) {
+    await store.dispatch('home/getBannerList')
+  },
+  computed: {
+    ...mapState('home', ['bannerList'])
+  },
+  mounted () {
+    // this.$store.dispatch('home/getBannerList')
   }
 }
 </script>

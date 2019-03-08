@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-07 15:05:27
+ * @Last Modified time: 2019-03-08 10:52:54
  */
 
 const Router = require('express').Router
@@ -44,6 +44,7 @@ router.post('/account/login', (req, res, next) => {
       }
     })
     .catch(err => {
+
       console.log(err, '最终报错')
       err._ssrcode = err.status || 500
       err._ssrerror = err.msg || 'Server error'
@@ -74,6 +75,7 @@ router.post('/account/checklogin', (req, res, next) => {
       }
     })
     .catch(err => {
+
       return res.json(err)
     })
 })
@@ -85,6 +87,7 @@ router.post('/account/checklogin', (req, res, next) => {
 router.post('/account/logout', (req, res, next) => {
 
   APIS.ACCOUT_LOGOUT().then(e => {
+
       // 清除个人信息
       delete req.session.xclubcookie
       delete req.session.uid
@@ -93,6 +96,7 @@ router.post('/account/logout', (req, res, next) => {
       return res.json(e.data)
     })
     .catch(err => {
+
       return res.json(err)
     })
 })

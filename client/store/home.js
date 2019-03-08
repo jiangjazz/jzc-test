@@ -2,45 +2,61 @@
  * @Author: Janzen 
  * @Date: 2019-03-07 16:48:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-07 16:49:08
+ * @Last Modified time: 2019-03-08 12:17:49
  */
 
 /**
  * 首页
  */
-import Vue from 'vue'
 
 // 函数名称统计
-// const COUNTRYLIST_SET = 'setCountryList'
+const HOME_SET_BANNER = 'setBanner'
+const HOME_SET_RECOMLIST = 'setRecomList'
 
 // state数据
 export const state = () => ({
+  // banner列表
+  bannerList: [],
+  // 推荐帖子列表
+  recomList: [],
+  //
+  recomCount: 0,
+  //
+  recomLimit: 5
 })
 
 // 同步方法
 export const mutations = {
-  // /**
-  //  * 设置 国家列表信息
-  //  * @param {array} list -> 国家列表信息
-  //  */
-  // [COUNTRYLIST_SET](state, list) {
-  //   state.countryList = list
-  // }
+  /**
+   * 设置 首页banner
+   * @param {array} list -> banner列表
+   */
+  [HOME_SET_BANNER](state, list) {
+    state.bannerList = list
+  },
+  /**
+   * 设置 首页推荐帖子
+   * @param {array} list -> 帖子列表
+   */
+  [HOME_SET_RECOMLIST](state, list) {
+    state.recomList = list
+  }
 }
 
 // 异步方法
 export const actions = {
   /**
-   * 获取 国家列表信息
+   * 获取 首页banner
    */
-  // async getCountryList({
-  //   commit
-  // }) {
-  //   // console.log(ucenterUid)
-  //   let res = await this.$axios.$post('/selfapi/common/getcoutrylist')
-  //   console.log(res)
-  //   if (Number(res.success) === 1) {
-  //     commit(COUNTRYLIST_SET, res.lists)
-  //   }
-  // }
+  async getBannerList({
+    commit,
+    rootGetters
+  }) {
+    let { fid } = rootGetters
+    const res = await this.$axios.$post('/selfapi/home/getbanner', { fid })
+    console.log(res)
+    if (Number(res.success) === 1) {
+      commit(HOME_SET_BANNER, res.lists)
+    }
+  }
 }
