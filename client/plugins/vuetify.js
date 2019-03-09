@@ -27,7 +27,9 @@ const MY_ICONS = {
   'edit': '',
   // new add
   'search': 'iconfont icon-search-o',
-  'user': 'iconfont icon-user'
+  'user': 'iconfont icon-user',
+  'eye': 'iconfont icon-eye-w',
+  'message': 'iconfont icon-message-square-w',
 }
 
 

@@ -92,8 +92,11 @@ module.exports = {
       Axios.post(url, params).then(response => {
           console.log('promise success')
 
-          if (cache) {
-            CACHED.set(key, response.data, maxAge)
+          if (cache && response.data) {
+            let { code, success } = response.data
+            if (Number(code) === 0 || Number(success) === 1) {
+              CACHED.set(key, response.data, maxAge)
+            }
           }
           resolve(response);
         }, err => {
@@ -135,8 +138,11 @@ module.exports = {
           params: params
         }).then(response => {
 
-          if (cache) {
-            CACHED.set(key, response.data, maxAge)
+          if (cache && response.data) {
+            let { code, success } = response.data
+            if (Number(code) === 0 || Number(success) === 1) {
+              CACHED.set(key, response.data, maxAge)
+            }
           }
           resolve(response);
         }, err => {

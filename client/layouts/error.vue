@@ -2,13 +2,13 @@
  * @Author: Janzen 
  * @Date: 2019-03-08 09:56:07 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 10:03:37
+ * @Last Modified time: 2019-03-08 16:35:41
  */
 <template>
   <div class="container">
     <h1 v-if="error.statusCode === 404">Page not found</h1>
     <h1 v-else>An error occurred</h1>
-    <n-link to="/">Home page</n-link>
+    <AppLink to="/">Home page</AppLink>
   </div>
 </template>
 
