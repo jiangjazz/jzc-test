@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-09 15:49:31 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-09 16:23:42
+ * @Last Modified time: 2019-03-10 15:16:24
  */
 <template>
   <section class="recomList">
@@ -41,11 +41,9 @@ export default {
     // 最终的链接
     linkTo(id) {
       let link = `${this.preLink}/ucenter`
-      console.log(this.uid, id)
       if (Number(this.uid) !== Number(id)) {
         link += `?uid=${id}`
       }
-      console.log(link)
       return link
     }
   }

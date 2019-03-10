@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 10:27:13
+ * @Last Modified time: 2019-03-10 16:02:11
  */
 <template>
   <v-footer :class="className" :fixed="false" dark height="150">
@@ -22,7 +22,7 @@
       </v-flex>
       <v-flex xs12 :class="`${className}_country`">
         <v-layout row justify-center >
-          <img class="ctyPic" :src="`${baseUrl}/${country.icon}`" alt="">
+          <img @click.stop="showChooseCountry" class="ctyPic" :src="`${baseUrl}/${country.icon}`" alt="">
           <span @click.stop="showChooseCountry">{{ country.country }}</span>
         </v-layout>
       </v-flex>

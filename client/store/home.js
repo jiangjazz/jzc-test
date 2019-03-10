@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-07 16:48:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 16:52:27
+ * @Last Modified time: 2019-03-10 16:47:26
  */
 
 /**
@@ -12,6 +12,7 @@
 // 函数名称统计
 const HOME_SET_BANNER = 'setBanner'
 const HOME_SET_RECOMLIST = 'setRecomList'
+// const HOME_SET_RECOMLIST_LOADINNG = 'setRecomListLoading'
 
 // state数据
 export const state = () => ({
@@ -22,7 +23,7 @@ export const state = () => ({
   // 推荐帖子 总数
   recomCount: 0,
   // 推荐帖子 单页条数
-  recomLimit: 5
+  recomLimit: 2,
 })
 
 // 同步方法
@@ -41,9 +42,14 @@ export const mutations = {
    */
   [HOME_SET_RECOMLIST](state, {
     lists = [],
-    count = 0
+    count = 0,
+    _isMobile = false
   }) {
-    state.recomList = lists
+    if (_isMobile) {
+      state.recomList = state.recomList.concat(lists) 
+    } else {
+      state.recomList = lists
+    }
     state.recomCount = count
   }
 }
@@ -57,11 +63,8 @@ export const actions = {
     commit,
     rootGetters
   }) {
-    let {
-      fid
-    } = rootGetters
     const res = await this.$axios.$post('/selfapi/home/getbanner', {
-      fid
+      fid: rootGetters.fid
     })
     if (Number(res.success) === 1) {
       commit(HOME_SET_BANNER, res.lists)
@@ -69,23 +72,31 @@ export const actions = {
   },
   /**
    * 获取 首页推荐帖子
+   * @param {number} page
+   * @param {boolean} isMobile 是否移动端，是则拼接获取到的数据
    */
   async getRecomList({
     commit,
-    rootGetters
+    rootGetters,
+    state
   }, {
-    page = 1
+    page = 1,
+    isMobile = false
   }) {
-    let {
-      fid
-    } = rootGetters
     const res = await this.$axios.$post('/selfapi/home/getrecomlist', {
-      fid,
+      fid: rootGetters.fid,
+      limit: state.recomLimit,
       page
     })
     console.log(res)
     if (Number(res.success) === 1) {
+      res._isMobile = isMobile
       commit(HOME_SET_RECOMLIST, res)
+      if (isMobile) {
+        return new Promise((resolve, reject) => {
+          resolve(res)
+        })
+      }
     }
   }
 }

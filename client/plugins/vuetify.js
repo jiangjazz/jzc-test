@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+import * as directives from 'vuetify/es5/directives'
 import colors from 'vuetify/es5/util/colors'
 const MY_ICONS = {
   'complete': '',
@@ -32,10 +33,10 @@ const MY_ICONS = {
   'message': 'iconfont icon-message-square-w',
 }
 
-
 Vue.use(Vuetify, {
   iconfont: 'iconfont',
   icons: MY_ICONS,
+  directives,
   theme: {
     primary: '#03AA4D' || colors.blue.darken2,
     accent: colors.grey.darken3,

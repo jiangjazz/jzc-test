@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-08 10:46:16 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 16:21:47
+ * @Last Modified time: 2019-03-10 16:28:32
  */
 
 const Router = require('express').Router
@@ -44,17 +44,20 @@ router.post('/home/getbanner', (req, res, next) => {
 /**
  * 首页推荐帖子
  * @param {string | number} fid 所属国家id
+ * @param {number} limit 单页帖子数
  * @param {string | number} page 当前页数
  */
 router.post('/home/getrecomlist', (req, res, next) => {
   let {
     fid,
+    limit = 5,
     page = 1
   } = req.body
 
   APIS.HOME_GETRECOMLIST({
       cache: true,
       fid,
+      limit,
       page
     }).then(e => {
 
