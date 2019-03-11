@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-07 16:48:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 16:47:26
+ * @Last Modified time: 2019-03-10 20:04:00
  */
 
 /**
@@ -63,6 +63,7 @@ export const actions = {
     commit,
     rootGetters
   }) {
+    
     const res = await this.$axios.$post('/selfapi/home/getbanner', {
       fid: rootGetters.fid
     })
@@ -83,12 +84,12 @@ export const actions = {
     page = 1,
     isMobile = false
   }) {
+
     const res = await this.$axios.$post('/selfapi/home/getrecomlist', {
       fid: rootGetters.fid,
       limit: state.recomLimit,
       page
     })
-    console.log(res)
     if (Number(res.success) === 1) {
       res._isMobile = isMobile
       commit(HOME_SET_RECOMLIST, res)

@@ -2,12 +2,11 @@
  * @Author: Janzen 
  * @Date: 2019-03-06 16:38:35 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 09:27:43
+ * @Last Modified time: 2019-03-10 21:09:56
  */
 /* eslint-disable */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import LangJson from '~/static/lang'
 
 Vue.use(VueI18n)
 
@@ -20,6 +19,8 @@ export default ({
     'fr': require('~/locales/fr.json')
   }
   let messages = {}
+  // 读取API的国家列表
+  let LangJson = store.getters.formatCountryList
   for (let item in LangJson) {
     messages[LangJson[item].route] = langs[LangJson[item].lang]
   }

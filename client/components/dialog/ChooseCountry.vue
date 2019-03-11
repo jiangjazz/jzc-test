@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-06 13:40:08 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 11:22:22
+ * @Last Modified time: 2019-03-10 21:09:24
  */
 <template>
   <v-dialog content-class="u-dialog chooseCountryDialog" v-model="visible" max-width="360" scrollable>
@@ -40,24 +40,16 @@
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
-import LangJson from '~/static/lang'
 
 export default {
-  data() {
-    return {
-      // 国家JSON数据
-      countrys: LangJson
-    }
-  },
   computed: {
     ...mapState(['baseUrl', 'country']),
-    ...mapState('country', ['countryList']),
-    ...mapGetters(['fid']),
+    ...mapGetters(['fid', 'formatCountryList']),
     // 排序后的国家列表
     sortCountryList() {
       let arr = []
-      for (let item in this.countrys) {
-        arr.push(this.countrys[item])
+      for (let item in this.formatCountryList) {
+        arr.push(this.formatCountryList[item])
       }
       arr = arr
         .sort((a, b) => {
@@ -119,7 +111,6 @@ export default {
       }
       
       this.$router.push(path)
-
       this.$store.commit('setCountry', item)
       this.$store.commit('setDialog', {countryDialogVisible: false})
     }

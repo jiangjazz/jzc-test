@@ -2,10 +2,9 @@
  * @Author: Janzen 
  * @Date: 2019-03-06 16:41:31 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 09:54:08
+ * @Last Modified time: 2019-03-11 11:27:32
  */
 /* eslint-disable */
-import LangJson from '~/static/lang'
 
 export default function ({
   isHMR,
@@ -17,6 +16,7 @@ export default function ({
   redirect,
   commit
 }) {
+
   // console.log('%ci18插件', 'background: black; color: white;')
   // If middleware is called from hot module replacement, ignore it
   if (isHMR) return
@@ -25,6 +25,8 @@ export default function ({
   let locale = store.state.locale || defaultLocale
   let paramsLocale = params.lang || defaultLocale
   app.i18n.locale = paramsLocale
+  // 读取API的国家列表
+  let LangJson = store.getters.formatCountryList
 
   // 检测是否为不存在的页面，是则跳转
   if (route.matched && route.matched.length === 0) {
@@ -41,7 +43,6 @@ export default function ({
     return redirect(str)
   } else {
     if (paramsLocale !== locale) {
-      // console.log(1111111111)
       store.commit('setCountry', LangJson[paramsLocale])
     }
   }

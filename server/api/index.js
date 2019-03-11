@@ -2,11 +2,12 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 10:46:59
+ * @Last Modified time: 2019-03-11 11:35:39
  */
 const consola = require('consola')
 const Router = require('express').Router
 const router = Router()
+const client = require('../config/redis')
 const axios = require('../config/axios').axios
 const formatCookie = require('../common/methods').formatCookie
 
@@ -15,10 +16,13 @@ const account = require('./account')
 const home = require('./home')
 
 /**
- * 自动发送cookie
+ * 自动发送cookie && 挂载redis
  */
 router.use(function (req, res, next) {
   console.log('before')
+  // 挂载redis
+  req.client = client
+  // 自动发送cookie
   let xclubcookie = req.session.xclubcookie
   if (xclubcookie) {
     axios.defaults.headers.Cookie = xclubcookie

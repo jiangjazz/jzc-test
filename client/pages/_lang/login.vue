@@ -1,17 +1,13 @@
 /*
  * @Author: Janzen 
  * @Date: 2019-03-04 18:53:44 
- * @Last Modified by:   Janzen 
- * @Last Modified time: 2019-03-04 18:53:44 
+ * @Last Modified by: Janzen
+ * @Last Modified time: 2019-03-11 09:32:51
  */
 <template>
   <div class="page-login">
-    login
-    <input class="u-input" v-model="username" type="text" name="username">
-    <input class="u-input" v-model="password" type="password" name="password" @keyup.enter="login">
-    <button @click="login">Login</button>
 
-    <button @click="checklogin">CheckLogin</button>
+    <button @click="clearStore">ClearStore</button>
   </div>
 </template>
 <script>
@@ -26,18 +22,11 @@ export default {
     }
   },
   methods: {
-    // 登陆
-    login() {
-      console.log(123123)
-      let { username, password } = this
-      this.$store.dispatch('account/login', {
-        username,
-        password
-      })
-    },
-    //
-    checklogin() {
-      this.$store.dispatch('account/checkLogin')
+    clearStore() {
+      this.$axios.$post('/selfapi/common/clearstore')
+        .then(res => {
+          console.log(res)
+        })
     }
   }
 }

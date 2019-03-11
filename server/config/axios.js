@@ -42,7 +42,7 @@ Axios.interceptors.response.use(function (response) {
   console.log('返还数据')
   return Promise.resolve(response);
 }, function (error) {
-  console.log('返还数据 出错', error, 1231231, error.response)
+  console.log('返还数据 出错', 1231231, error.response)
   let {
     response,
     config
@@ -95,6 +95,7 @@ module.exports = {
           if (cache && response.data) {
             let { code, success } = response.data
             if (Number(code) === 0 || Number(success) === 1) {
+              console.log(111111111111)
               CACHED.set(key, response.data, maxAge)
             }
           }
@@ -141,6 +142,7 @@ module.exports = {
           if (cache && response.data) {
             let { code, success } = response.data
             if (Number(code) === 0 || Number(success) === 1) {
+              console.log(111111111111)
               CACHED.set(key, response.data, maxAge)
             }
           }

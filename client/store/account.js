@@ -40,7 +40,10 @@ export const actions = {
   }) {
     console.log('触发 验证登陆')
     const res = await this.$axios.$post('/selfapi/account/checklogin')
-    console.log(res, 121212112)
+    if (Number(res.code) !== 0) {
+      // 假登陆状态，清除用户信息
+      commit('setUsermsg', {}, {root: true})
+    }
   },
   /**
    * 退出登陆

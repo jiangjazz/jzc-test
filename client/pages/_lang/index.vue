@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:53:34 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 16:48:33
+ * @Last Modified time: 2019-03-10 19:50:09
  */
 <template>
   <div class="page-home">
@@ -29,6 +29,7 @@ import HomeBanner from '~/components/home/Banner'
 import HomeRecomList from '~/components/home/RecomList'
 
 export default {
+  name: 'home',
   components: {
     HomeBanner,
     HomeRecomList

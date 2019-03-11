@@ -2,18 +2,19 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 11:22:36
+ * @Last Modified time: 2019-03-11 13:00:48
  */
 /**
  * 全局store
  */
-import LangJson from '@/static/lang'
+// import LangJson from '@/static/lang'
 
 // 函数名称统计
 const G_SET_DIALOG = 'setDialog'
 const G_SET_USERMSG = 'setUsermsg'
 const G_SET_POPMSG = 'setPopmsg'
 const G_SET_COUNTRY = 'setCountry'
+const G_SET_COUNTRYLIST = 'setCountryList'
 
 // 全局变量
 const DEFAULT_LOCALE = 'global'
@@ -26,6 +27,8 @@ export const state = () => ({
   selfUrl: process.env.selfUrl || '',
   // 当前国家
   locale: DEFAULT_LOCALE,
+  // 国家列表信息
+  countryList: [],
   // chooseCountry模态框是否可见
   countryDialogVisible: false,
   // login模态框是否可见
@@ -53,18 +56,40 @@ export const getters = {
   // 国家id
   fid(state) {
     return state.country.fid || null
+  },
+  // 格式化国家列表
+  formatCountryList(state) {
+    let countryObj = {}
+    state.countryList.forEach(item => {
+      let sn = item.sname.toLowerCase()
+      countryObj[sn] = {
+        "fid": item.fid,
+        "icon": item.icon,
+        "route": sn,
+        "lang": Number(item.fid) === 211 ? 'fr' : 'en',
+        "country": item.name
+      }
+    })
+    return countryObj
   }
 }
 
 // 同步方法
 export const mutations = {
   /**
+   * 设置 国家列表信息
+   * @param {array} list -> 国家列表信息
+   */
+  [G_SET_COUNTRYLIST](state, list) {
+    state.countryList = list
+  },
+  /**
    * 设置 国家信息
    * @param {object} country 
    */
-  [G_SET_COUNTRY](state, country) {
-    state.country = country || {}
-    state.locale = country.route
+  [G_SET_COUNTRY](state, country={}) {
+    state.country = country
+    state.locale = country.route || DEFAULT_LOCALE
   },
   /**
    * 设置模态框是否可见
@@ -104,8 +129,10 @@ export const actions = {
    * 特殊方法
    * 从服务器端传输数据到客户端
    */
-  nuxtServerInit({
-    commit
+  async nuxtServerInit({
+    commit,
+    dispatch,
+    getters
   }, {
     req,
     redirect,
@@ -114,9 +141,11 @@ export const actions = {
     query,
     Url
   }) {
-    console.log('服务器初始化')
+    console.log('服务器初始化，开始加载国家')
     // console.log(req.session)
+    await dispatch('getCountryList')
     // 从路由获取当前国家
+    let LangJson = getters.formatCountryList
     let lang = LangJson[params.lang] ? params.lang : DEFAULT_LOCALE
     commit(G_SET_COUNTRY, LangJson[lang])
 
@@ -124,7 +153,22 @@ export const actions = {
       // 判定是否存在个人usermsg
       if (req.session.usermsg) {
         commit(G_SET_USERMSG, req.session.usermsg)
+        // 验证是否假登陆
+        dispatch('account/checkLogin')
       }
+    }
+  },
+  /**
+   * 获取 国家列表信息
+   */
+  async getCountryList({
+    commit
+  }) {
+    let res = await this.$axios.$post('/selfapi/common/getcoutrylist')
+    // console.log(res, 'getCountryList')
+    if (Number(res.success) === 1) {
+      // console.log(res.lists)
+      commit(G_SET_COUNTRYLIST, res.lists.filter(item => Number(item.is_country) === 1))
     }
   },
   /***

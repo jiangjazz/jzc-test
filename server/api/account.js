@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 10:52:54
+ * @Last Modified time: 2019-03-10 19:59:38
  */
 
 const Router = require('express').Router
@@ -61,7 +61,6 @@ router.post('/account/checklogin', (req, res, next) => {
       cache: true
     }).then(e => {
 
-      console.log(e.status, e.data, 'process')
       if (Number(e.status) === 200 && Number(e.data.code) === 0) {
         // 挂载信息并传递
         req.xclub = e
