@@ -24,6 +24,11 @@ const HOME_GETBANNER = params => Axios.post('/plugin.php?id=banners_manage', par
 // 首页推荐帖子
 const HOME_GETRECOMLIST = params => Axios.post('/plugin.php?id=recom_threads', params)
 
+/**
+ * 聊天 私信 && 群聊
+ */
+const CHAT_GETMESSAGE = params => Axios.get('/api/mobile/index.php?version=5&module=mypm', params)
+
 module.exports = {
   // 通用
   COMMON_GETCOUNTRYLIST,
@@ -34,4 +39,6 @@ module.exports = {
   // 首页
   HOME_GETBANNER,
   HOME_GETRECOMLIST,
+  // 聊天 私信 && 群聊
+  CHAT_GETMESSAGE
 }

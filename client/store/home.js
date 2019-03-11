@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-07 16:48:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 20:04:00
+ * @Last Modified time: 2019-03-11 16:43:18
  */
 
 /**
@@ -12,7 +12,6 @@
 // 函数名称统计
 const HOME_SET_BANNER = 'setBanner'
 const HOME_SET_RECOMLIST = 'setRecomList'
-// const HOME_SET_RECOMLIST_LOADINNG = 'setRecomListLoading'
 
 // state数据
 export const state = () => ({

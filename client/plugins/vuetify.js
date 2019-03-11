@@ -31,6 +31,7 @@ const MY_ICONS = {
   'user': 'iconfont icon-user',
   'eye': 'iconfont icon-eye-w',
   'message': 'iconfont icon-message-square-w',
+  'add': 'iconfont icon-add',
 }
 
 Vue.use(Vuetify, {

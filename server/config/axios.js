@@ -29,7 +29,7 @@ Axios.interceptors.request.use(function (config) {
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
-  // console.log(config, 12312312321)
+  console.log(config, 12312312321)
   return config
 }, function (error) {
 

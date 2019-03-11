@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 11:35:39
+ * @Last Modified time: 2019-03-11 16:46:34
  */
 const consola = require('consola')
 const Router = require('express').Router
@@ -14,6 +14,7 @@ const formatCookie = require('../common/methods').formatCookie
 const common = require('./common')
 const account = require('./account')
 const home = require('./home')
+const chat = require('./chat')
 
 /**
  * 自动发送cookie && 挂载redis
@@ -33,6 +34,7 @@ router.use(function (req, res, next) {
 router.use(common)
 router.use(account)
 router.use(home)
+router.use(chat)
 
 /**
  * 自动保存API设置的cookie

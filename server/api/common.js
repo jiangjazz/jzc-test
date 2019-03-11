@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-12-27 10:02:23 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 13:02:39
+ * @Last Modified time: 2019-03-11 16:37:21
  */
 /**
  * 通用信息
@@ -50,10 +50,13 @@ router.post('/common/getcoutrylist', async (req, res, next) => {
   }
 })
 
+/**
+ * 清空session
+ */
 router.post('/common/clearstore', (req, res, next) => {
-  console.log(req.session)
+
   req.session.destroy(function (err) {
-    console.log('clear store', err)
+    // console.log('clear store', err)
     return res.json({
       code: 0,
       msg: 'clear store success'

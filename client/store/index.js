@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 13:00:48
+ * @Last Modified time: 2019-03-11 17:17:46
  */
 /**
  * 全局store
@@ -142,7 +142,7 @@ export const actions = {
     Url
   }) {
     console.log('服务器初始化，开始加载国家')
-    // console.log(req.session)
+    console.log(req.session)
     await dispatch('getCountryList')
     // 从路由获取当前国家
     let LangJson = getters.formatCountryList

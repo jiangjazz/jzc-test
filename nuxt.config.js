@@ -66,6 +66,7 @@ module.exports = {
    * 配置在客户端和服务端共享的环境变量
    */
   env: {
+    WS_URL: process.env.WS_URL || 'http://localhost:3000',
     // API url
     baseUrl: baseUrl,
     //
@@ -143,5 +144,8 @@ module.exports = {
     extend(config, ctx) {
 
     }
+  },
+  server: {
+    socket: '/tmp/nuxt.socket'
   }
 }

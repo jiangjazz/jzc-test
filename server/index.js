@@ -1,3 +1,4 @@
+const http = require('http')
 const express = require('express')
 const consola = require('consola')
 
@@ -6,6 +7,8 @@ const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const api = require('./api')
 const redisOptions = require('./config/index').redisOptions
+
+const SocketIO = require('socket.io')
 
 const {
   Nuxt,
@@ -18,6 +21,8 @@ const app = express()
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
+const server = http.createServer(app)
+const io = SocketIO(server)
 
 // Init Nuxt.js
 const nuxt = new Nuxt(config)
@@ -78,12 +83,26 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
+  
   // Listen the server
-  app.listen(port, host)
+  // app.listen(port, host)
+  server.listen(port, host)
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
   })
 }
 start()
+
+// Socket.io
+require('./socket/index')(io)
+// const messages = []
+// io.on('connection', (socket) => {
+//   socket.on('last-messages', function (fn) {
+//     fn(messages.slice(-50))
+//   })
+//   socket.on('send-message', function (message) {
+//     messages.push(message)
+//     socket.broadcast.emit('new-message', message)
+//   })
+// })
