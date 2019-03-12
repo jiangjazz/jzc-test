@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:53:34 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 19:50:09
+ * @Last Modified time: 2019-03-12 11:01:42
  */
 <template>
   <div class="page-home">
@@ -10,7 +10,7 @@
     <AppNav />
     <v-container id="home_content" class="home_content">
       <v-layout v-scroll:#home_content="onScroll" column justify-center align-center>
-        <v-flex xs12 class="banner_ct">
+        <v-flex xs12 class="home_ct">
           <HomeBanner />
           <HomeRecomList />
         </v-flex>

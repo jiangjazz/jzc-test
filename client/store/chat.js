@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-11 16:42:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 17:21:38
+ * @Last Modified time: 2019-03-12 09:33:26
  */
 
 /**
@@ -39,7 +39,7 @@ export const actions = {
   }) {
     
     const res = await this.$axios.$post('/selfapi/chat/getmessage')
-    console.log(res)
+    // console.log(res)
     if (Number(res.code) === 0) {
       commit(CHAT_SET_MESSAGELIST, res.data.Variables.list)
     }

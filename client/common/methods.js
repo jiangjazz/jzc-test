@@ -1,79 +1,38 @@
 /*
- * @Author: Janzen 
- * @Date: 2018-05-28 11:54:10 
+ * @Author: Janzen
+ * @Date: 2017-12-25 16:03:36
  * @Last Modified by: Janzen
- * @Last Modified time: 2018-06-12 15:00:15
+ * @Last Modified time: 2019-03-12 11:40:20
  */
-
 import Vue from 'vue'
-import emoji from '~/static/emoticonJson/index.js'
-
+import emojiJSON from '~/static/emoticonJson/index.js'
+import xboy from '~/static/emoticonJson/xboy'
+let emoji = []
+emojiJSON.map((item, index) => {
+  emoji[index] = item
+  return item
+})
+// 扩展图片编译
+emoji.push({
+  title: 'Max',
+  type: 'image',
+  content: xboy
+})
+const {
+  $message
+} = Vue.prototype
 /**
- * 格式化编辑框内容，content转化成data
- * @param {string} content -> 输入内容
- * @param {array} aids -> 图片集合
+ * 加密编辑框内容
+ * @param {string} str 传入的编辑框内容
  */
-export const contentToData = function (content, aids) {
-  if (typeof content !== 'string') {
-    console.log('%c 格式化内容必须为字符串', 'color: red;')
-    return false
+export const encryptionMsg = function (str) {
+  if (typeof str !== 'string') {
+    $message.error('格式化的内容不是字符串')
+    return ''
   }
-  let data = content.replace(/\<img src=\"http.*?\>/g, function (match) {
-    console.log(match)
-    // 最终返还的替换好的字符串
-    let repacledStr = match
-    let src = match.match(/\"(http.*?)\"/g)[0]
-    // 匹配到的url
-    let url = src.substring(1, src.length - 1)
-    // 检测aids内是否存在该url，如果有则格式化
-    aids.some(item => {
-      let status = (item.url === url)
-      if (status) {
-        repacledStr = `[attach]${item.aid}[/attach]`
-      }
-      return status
-    })
-    return repacledStr
-  }).replace(/</g, '[').replace(/>/g, ']').replace(/&nbsp;/g, '')
-  console.log(data)
-  return data
-}
-
-/**
- * 格式化文本内容, data转化成content
- * @param {string} data -> 接口获取数据
- */
-export const formatEmoji = function (data) {
-  if (typeof data !== 'string') {
-    console.log('只能格式化string内容')
-    return false
-  }
-  let reString = data // 最终返还的字符串
-  let emojiImgRg = /\[img[^\]].*?]/g // img字符串正则
-  let emojiRg = /\{:\d+_\d+:}/g // 表情包匹配正则
-  /* 格式化表情包 */
-  let _emojiArr = data.match(emojiRg)
-  let _obj = {} // 最终生成的表情包对象 key: {:xx_xx:} value: src
-  // 重组所有表情包
-  emoji.forEach((item, index) => {
-    item.content.forEach((item, index) => {
-      _obj[item.alt] = item.src
-    })
-  })
-  // 解决历史遗留问题
-  reString = reString.replace(emojiImgRg, (item, index, str) => {
-    let match = item.match(emojiRg)
-    if (match && match[0]) {
-      return match[0]
-    } else {
-      return item
-    }
-  })
-  // 真正的转译
-  reString = reString.replace(emojiRg, (item, index, str) => {
-    return `<img src="${_obj[item]}" alt="${item}" data-w-e="1" />`
-  })
-  return reString
+  return str.replace(/</g, '[')
+    .replace(/>/g, ']')
+    .replace(/&nbsp;/g, ' ')
 }
 
 /**
@@ -86,11 +45,14 @@ export const formatData = function (value, type = 1) {
   let year = d.getFullYear()
   let month = d.getMonth() + 1
   let day = d.getDate() < 10 ? '0' + d.getDate() : '' + d.getDate()
-  let hour = d.getHours()
-  let minutes = d.getMinutes()
-  let seconds = d.getSeconds()
+  let hour = d.getHours() < 10 ? '0' + d.getHours() : '' + d.getHours()
+  let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : '' + d.getMinutes()
+  let seconds = d.getSeconds() < 10 ? '0' + d.getSeconds() : '' + d.getSeconds()
   let result = ''
   switch (type) {
+    case 3:
+      result = `${year}-${month}-${day} ${hour}:${minutes}`
+      break
     case 2:
       result = `${year}-${month}-${day}`
       break
@@ -101,25 +63,124 @@ export const formatData = function (value, type = 1) {
   }
   return result
 }
+/**
+ * 锚点跳转
+ * @param {string} selector 元素名称，例：'#id'
+ * @param {vue} _this vue上下文
+ */
+export const goAnchor = function (selector, _this) {
+  setTimeout(() => {
+    const anchor = _this.$el.querySelector(selector)
+    console.log(anchor)
+    if (anchor) {
+      document.body.scrollTop = anchor.offsetTop // chrome
+      document.documentElement.scrollTop = anchor.offsetTop // firefox
+    }
+  }, 500)
+}
 
 /**
- * 格式化 来源
- * @param {string} name -> 来源名称
+ * 格式化html字符串
+ * @param {string} str html字符串
  */
-export const formatDevice = function (name) {
-  if (name) {
-    if (name.toLowerCase().indexOf('infinix') !== -1) {
-      return `from ${name}`
-    } else if (name.toLowerCase() === 'pc') {
-      return 'from PC'
-    } else if (name.toLowerCase() === 'web') {
-      return 'from WEB'
-    } else {
-      return 'from XClub app'
-    }
+export const formatHtml = function (str) {
+  let msg = str || ''
+  return msg.replace(/\[/gi, '\<').replace(/\]/gi, '\>')
+}
+/**
+ * 格式化emoji表情
+ */
+export const formatEmoji = function (str, load) {
+  // console.log(str)
+  let emojiRg = /\{:[a-zA-Z0-9]+_[a-zA-Z0-9]+:}/g
+  let emojiImgRg = /[\<\[]img.*?[\>\]]/g // img 正则
+  let reString = str || ''
+  let _emojiArr = str.match(emojiRg)
+  if (load) {
+    let _arr = []
+    let _obj = {}
+    emoji.forEach((item, index) => {
+      _arr = _arr.concat(item.content)
+    })
+    _arr.forEach((item, index) => {
+      _obj[item.alt] = item.src
+    })
+    // 解决历史遗留问题
+    reString = reString.replace(emojiImgRg, (item, index, str) => {
+      let match = item.match(emojiRg)
+      if (match && match[0]) {
+        return match[0]
+      } else {
+        return item
+      }
+    })
+    /* console.log(reString)
+    console.log('reString', reString.replace(/data-w-e=\"1\"\>/g, '')) */
+    return reString.replace(/(data-w-e=\"1\"\>)/g, '').replace(emojiRg, (item, index, str) => {
+      return `<img src="${_obj[item]}" alt="${item}" data-w-e="1" />`
+    })
   } else {
-    return 'from PC'
+    let sIndex = 0
+    return reString.replace(emojiImgRg, (item, index, str) => {
+      console.log(item)
+      if (/\{:[a-zA-Z0-9]+_[a-zA-Z0-9]+:}/.test(item)) {
+        return `${_emojiArr[sIndex++]}`
+      } else {
+        return item
+      }
+    })
   }
+}
+
+/**
+ * 面包屑导航
+ * @param route
+ * @param username
+ * @param pathName
+ */
+export const formatBreadcrumb = function (route, username, pathName, uid) {
+  let breadcrumb
+  switch (route) {
+    case 'ucenter':
+      if (uid) {
+        breadcrumb = [{
+          name: username,
+          path: `/ucenter/account/posts?uid=${uid}`
+        }, {
+          name: pathName,
+          path: ''
+        }]
+      } else {
+        breadcrumb = [{
+          name: username,
+          path: '/ucenter/account/posts'
+        }, {
+          name: pathName,
+          path: ''
+        }]
+      }
+      break
+    default:
+      break
+  }
+  this.$store.commit('header/setbreadcrumb', breadcrumb)
+}
+
+export const randomString = function (length) {
+  length = length || 32
+  // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+  let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+  let maxPos = $chars.length
+  let pwd = ''
+  for (let i = 0; i < length; i++) {
+    pwd += $chars.charAt(Math.floor(Math.random() * maxPos))
+  }
+  return pwd
+}
+
+export const fileCountry = function(country) {
+  let msg = country || ''
+  return msg.replace(/\[|CotedIvoire/g, "Côte d'Ivoire")
 }
 
 /**
