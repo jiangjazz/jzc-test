@@ -50,10 +50,14 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    {
+      src: '@/plugins/wangeditor',
+      ssr: false
+    },
     '@/plugins/vuetify',
     '@/plugins/public-components',
     '@/plugins/axios-client',
-    '@/plugins/i18n.js',
+    '@/plugins/i18n'
   ],
 
   /*

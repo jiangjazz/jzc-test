@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-11 16:42:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-12 09:33:26
+ * @Last Modified time: 2019-03-12 12:53:49
  */
 
 /**
@@ -15,7 +15,9 @@ const CHAT_SET_MESSAGELIST = 'setMessageList'
 // state数据
 export const state = () => ({
   // 消息列表
-  messageList: []
+  messageList: [],
+  // 当前聊天信息
+  activeChat: [],
 })
 
 // 同步方法

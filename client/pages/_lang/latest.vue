@@ -5,6 +5,7 @@
     <v-container>
       <v-layout justify-center>
         <v-btn type="success" @click.stop="checkLogin">CheckLogin</v-btn>
+        <AppEditor></AppEditor>
       </v-layout>
     </v-container>
   </div>

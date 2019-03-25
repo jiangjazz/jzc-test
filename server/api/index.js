@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 16:46:34
+ * @Last Modified time: 2019-03-25 17:48:06
  */
 const consola = require('consola')
 const Router = require('express').Router
@@ -27,6 +27,8 @@ router.use(function (req, res, next) {
   let xclubcookie = req.session.xclubcookie
   if (xclubcookie) {
     axios.defaults.headers.Cookie = xclubcookie
+  } else {
+    axios.defaults.headers.Cookie = ''
   }
   next()
 })
@@ -44,11 +46,31 @@ router.use(function (req, res, next) {
   let headers = req.xclub.headers || {}
   if (Number(req.xclub.status) === 200) {
     let cookie = formatCookie(headers['set-cookie'])
+    console.log(headers['set-cookie'])
     // 如果存在auth字段，则存储cookie
     if (cookie.indexOf('auth') >= 0) {
       req.session.xclubcookie = cookie
+      // // 传递cookie至浏览器端，方便极少数直连API获取用户信息
+      // headers['set-cookie'].forEach(item => {
+      //   let itemarr = item.split(';')
+      //   if (itemarr[0]) {
+      //     // cookie的name value
+      //     let keyvalue = itemarr[0].split('=')
+      //     let attrs = itemarr.slice(1)
+      //     if (keyvalue.length === 2) {
+      //       // cookie其他设置
+      //       let attrObj = {}
+      //       attrs.forEach(att => {
+      //         let attrKeyValue = att.split('=')
+      //         attrObj[attrKeyValue[0]] = attrKeyValue[1] || true
+      //       })
+  
+      //       res.cookie(keyvalue[0], keyvalue[1], attrObj)
+      //     }
+      //   }
+      // })
     }
-    console.log(cookie)
+    
   }
   return res.json(req.xclub.data)
 })

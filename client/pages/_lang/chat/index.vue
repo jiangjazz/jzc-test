@@ -33,7 +33,7 @@
                   <img :src="`${baseUrl}/uc_server/avatar.php?uid=${item.touid}&size=big`">
                 </v-list-tile-avatar>
 
-                <v-list-tile-content>
+                <v-list-tile-content @click.stop="showChat">
                   <v-list-tile-title v-html="getTitle(item)"></v-list-tile-title>
                   <v-list-tile-sub-title v-html="item.message ? formatMessageBrief(item.message) : formatMessageBrief(item.subject)"></v-list-tile-sub-title>
                 </v-list-tile-content>
@@ -92,9 +92,13 @@ export default {
     formatMessage(message) {
       let msg = message || ''
       return formatEmoji(msg.replace(/\[|</g, '<').replace(/\]|>/g, '>'), true)
+    },
+    // 显示聊天框
+    showChat() {
+      this.$store.commit('setDialog', { chatDialogVisible: true })
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.messageList)
   }
 }

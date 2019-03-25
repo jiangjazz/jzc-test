@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 17:17:46
+ * @Last Modified time: 2019-03-12 17:03:15
  */
 /**
  * 全局store
@@ -33,6 +33,8 @@ export const state = () => ({
   countryDialogVisible: false,
   // login模态框是否可见
   loginDialogVisible: false,
+  // chat 模态框是否可见
+  chatDialogVisible: false,
   // 用户id
   uid: null,
   // 用户信息
@@ -184,7 +186,8 @@ export const actions = {
     // 所有dialog集合
     let dialogs = {
       countryDialogVisible: false,
-      loginDialogVisible: false
+      loginDialogVisible: false,
+      chatDialogVisible: false
     }
     switch (dialog) {
       case 'country':
@@ -192,6 +195,9 @@ export const actions = {
         break
       case 'login':
         dialogs.loginDialogVisible = true
+        break
+      case 'chat':
+        dialogs.chatDialogVisible = true
         break
       default:
         break
