@@ -1,5 +1,5 @@
 const Axios = require('./axios')
-const request = require('./request')
+const Request = require('./request')
 
 /**
  * 通用
@@ -7,9 +7,8 @@ const request = require('./request')
 // 获取国家列表
 const COMMON_GETCOUNTRYLIST = params => Axios.get('/plugin.php?id=countrys&country=1', params)
 // 发帖上传图片
-const COMMON_UPLOADIMAGE = (params, callback) => request({
+const COMMON_UPLOADIMAGE = (params, callback) => Request.post({
   url: '/api/mobile/index.php?version=5&module=uploadimage',
-  method: 'post',
   ...params
 }, callback)
 
