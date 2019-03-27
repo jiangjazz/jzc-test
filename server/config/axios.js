@@ -64,7 +64,7 @@ Axios.interceptors.response.use(function (response) {
 module.exports = {
   axios: Axios,
   //Post  请求方式
-  post(url, paramsObj = {}) {
+  post(url, paramsObj = {}, config = {}) {
     console.log('post', paramsObj)
 
     let key
@@ -89,7 +89,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       console.log('promise')
 
-      Axios.post(url, params).then(response => {
+      Axios.post(url, params, config).then(response => {
           console.log('promise success')
 
           if (cache && response.data) {
@@ -112,7 +112,7 @@ module.exports = {
   },
 
   //GET 请求方式
-  get(url, paramsObj = {}) {
+  get(url, paramsObj = {}, config={}) {
     console.log('get', paramsObj)
 
     let key
@@ -137,7 +137,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       Axios.get(url, {
           params: params
-        }).then(response => {
+        }, config).then(response => {
 
           if (cache && response.data) {
             let { code, success } = response.data

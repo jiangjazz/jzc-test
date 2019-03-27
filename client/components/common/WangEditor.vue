@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 16:48:15 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-25 16:35:24
+ * @Last Modified time: 2019-03-27 12:23:15
  */
 /**
  * 富文本编辑器
@@ -185,9 +185,10 @@ export default {
     // 隐藏“网络图片”tab
     this.editor.customConfig.showLinkImg = false
     // 配置服务器端地址
-    this.editor.customConfig.uploadImgServer = `${
-      this.baseUrl
-    }/api/mobile/index.php?version=5&module=uploadimage`
+    this.editor.customConfig.uploadImgServer = '/selfapi/upload/image'
+    // this.editor.customConfig.uploadImgServer = `${
+    //   this.baseUrl
+    // }/api/mobile/index.php?version=5&module=uploadimage`
     // 自定义filename
     this.editor.customConfig.uploadFileName = 'Filedata'
     this.editor.customConfig.withCredentials = true

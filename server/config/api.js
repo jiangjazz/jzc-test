@@ -1,10 +1,17 @@
 const Axios = require('./axios')
+const request = require('./request')
 
 /**
  * 通用
  */
 // 获取国家列表
-const COMMON_GETCOUNTRYLIST = params => Axios.get('/plugin.php?id=countrys&country=1')
+const COMMON_GETCOUNTRYLIST = params => Axios.get('/plugin.php?id=countrys&country=1', params)
+// 发帖上传图片
+const COMMON_UPLOADIMAGE = (params, callback) => request({
+  url: '/api/mobile/index.php?version=5&module=uploadimage',
+  method: 'post',
+  ...params
+}, callback)
 
 /**
  * 账户 相关
@@ -32,6 +39,7 @@ const CHAT_GETMESSAGE = params => Axios.get('/api/mobile/index.php?version=5&mod
 module.exports = {
   // 通用
   COMMON_GETCOUNTRYLIST,
+  COMMON_UPLOADIMAGE,
   // 账户
   ACCOUNT_LOGIN,
   ACCOUNT_CHECKLOGIN,

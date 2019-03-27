@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 15:02:11 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 14:30:15
+ * @Last Modified time: 2019-03-26 21:16:45
  */
 /**
  * axios配置
@@ -18,7 +18,7 @@ export default function ({
     'Content-Type': 'application/json;charset=utf-8'
   }
   $axios.onRequest(config => {
-    // console.log('Making request to ', config)
+    console.log('Making request to ', config)
     return config
   })
   $axios.onResponse(res => {

@@ -91,3 +91,6 @@ package-lock.json
 
 # 首页 包含判定是否pc的跳转
 client/app.html
+
+#
+uploads/*
