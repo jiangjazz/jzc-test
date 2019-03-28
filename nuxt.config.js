@@ -70,7 +70,7 @@ module.exports = {
    * 配置在客户端和服务端共享的环境变量
    */
   env: {
-    WS_URL: process.env.WS_URL || 'http://localhost:3000',
+    WS_URL: process.env.WS_URL || 'http://localhost:3001',
     // API url
     baseUrl: baseUrl,
     //
@@ -113,11 +113,11 @@ module.exports = {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3000}`,
+    baseURL: `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3001}`,
     browserBaseURL: '',
     credentials: false,
     proxy: {
-      '/selfapi': `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3000}`
+      '/selfapi': `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3001}`
     },
     debug: false,
     retry: {

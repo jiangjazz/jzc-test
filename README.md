@@ -9,7 +9,7 @@
 # 安装开发环境
 $ npm install
 
-# 启动带热加载的开发环境 localhost:3000
+# 启动带热加载的开发环境 localhost:3001
 $ npm run dev
 
 # ssr生产环境的编译和启动

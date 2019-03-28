@@ -29,7 +29,7 @@ const nuxt = new Nuxt(config)
 
 const {
   host = process.env.HOST || '0.0.0.0',
-    port = process.env.PORT || 3000
+    port = process.env.PORT || 3001
 } = nuxt.options.server
 
 
