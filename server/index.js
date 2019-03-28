@@ -28,10 +28,9 @@ const io = SocketIO(server)
 const nuxt = new Nuxt(config)
 
 const {
-  host = process.env.HOST || '0.0.0.0',
-    port = process.env.PORT || 3001
+  host = '0.0.0.0',
+    port = 3001
 } = nuxt.options.server
-
 
 app.set('port', port)
 // Body parser，用来封装 req.body

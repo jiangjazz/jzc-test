@@ -2,6 +2,8 @@ const pkg = require('./package')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 //
 const config = require('./config/index')
+// 服务启动端口
+const serverHttp = `http://${pkg.config.nuxt.host}:${pkg.config.nuxt.port}`
 // api地址 测试环境
 const baseUrl = config.API_URL || ''
 const selfUrl = config.SELF_URL || ''
@@ -70,7 +72,8 @@ module.exports = {
    * 配置在客户端和服务端共享的环境变量
    */
   env: {
-    WS_URL: process.env.WS_URL || 'http://localhost:3001',
+    // WS_URL: process.env.WS_URL || 'http://localhost:3001',
+    WS_URL: serverHttp,
     // API url
     baseUrl: baseUrl,
     //
@@ -113,11 +116,11 @@ module.exports = {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3001}`,
+    baseURL: serverHttp,
     browserBaseURL: '',
     credentials: false,
     proxy: {
-      '/selfapi': `${process.env.HOST || 'http://0.0.0.0'}:${process.env.PORT || 3001}`
+      '/selfapi': serverHttp
     },
     debug: false,
     retry: {
