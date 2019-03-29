@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-07 16:48:39 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 16:43:18
+ * @Last Modified time: 2019-03-29 17:29:17
  */
 
 /**
@@ -83,6 +83,8 @@ export const actions = {
     page = 1,
     isMobile = false
   }) {
+    // 最终是否读取数据成功标识符
+    let _status_ = false
 
     const res = await this.$axios.$post('/selfapi/home/getrecomlist', {
       fid: rootGetters.fid,
@@ -90,6 +92,8 @@ export const actions = {
       page
     })
     if (Number(res.success) === 1) {
+      _status_ = res.lists && res.lists.length>0 // 数据读取成功
+      //
       res._isMobile = isMobile
       commit(HOME_SET_RECOMLIST, res)
       if (isMobile) {
@@ -98,5 +102,7 @@ export const actions = {
         })
       }
     }
+
+    return _status_
   }
 }
