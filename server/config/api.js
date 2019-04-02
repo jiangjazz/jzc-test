@@ -5,7 +5,7 @@ const Request = require('./request')
  * 通用
  */
 // 获取国家列表
-const COMMON_GETCOUNTRYLIST = params => Axios.get('/plugin.php?id=countrys&country=1', params)
+const COMMON_GETCOUNTRYLIST = (params, config) => Axios.get('/plugin.php?id=countrys&country=1', params, config)
 // 发帖上传图片
 const COMMON_UPLOADIMAGE = (params, callback) => Request.post({
   url: '/api/mobile/index.php?version=5&module=uploadimage',
@@ -16,24 +16,24 @@ const COMMON_UPLOADIMAGE = (params, callback) => Request.post({
  * 账户 相关
  */
 // 登陆
-const ACCOUNT_LOGIN = params => Axios.post('/api/mobile/index.php?version=5&module=login', params)
+const ACCOUNT_LOGIN = (params, config) => Axios.post('/api/mobile/index.php?version=5&module=login', params, config)
 // 验证假登陆(成功返还个人信息)
-const ACCOUNT_CHECKLOGIN = params => Axios.get('/api/mobile/index.php?version=5&module=profile', params)
+const ACCOUNT_CHECKLOGIN = (params, config) => Axios.get('/api/mobile/index.php?version=5&module=profile', params, config)
 // 退出登陆
-const ACCOUT_LOGOUT = params => Axios.get('/api/mobile/index.php?version=4&module=logout', params)
+const ACCOUT_LOGOUT = (params, config) => Axios.get('/api/mobile/index.php?version=4&module=logout', params, config)
 
 /**
  * 首页
  */
 // 首页banner
-const HOME_GETBANNER = params => Axios.post('/plugin.php?id=banners_manage', params)
+const HOME_GETBANNER = (params, config) => Axios.post('/plugin.php?id=banners_manage', params, config)
 // 首页推荐帖子
-const HOME_GETRECOMLIST = params => Axios.post('/plugin.php?id=recom_threads', params)
+const HOME_GETRECOMLIST = (params, config) => Axios.post('/plugin.php?id=recom_threads', params, config)
 
 /**
  * 聊天 私信 && 群聊
  */
-const CHAT_GETMESSAGE = params => Axios.get('/api/mobile/index.php?version=5&module=mypm', params)
+const CHAT_GETMESSAGE = (params, config) => Axios.get('/api/mobile/index.php?version=5&module=mypm', params, config)
 
 module.exports = {
   // 通用

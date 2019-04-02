@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 15:02:11 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-26 21:16:45
+ * @Last Modified time: 2019-04-02 15:24:24
  */
 /**
  * axios配置
@@ -14,11 +14,9 @@ export default function ({
   redirect,
   store
 }) {
-  $axios.defaults.headers = {
-    'Content-Type': 'application/json;charset=utf-8'
-  }
+  $axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
   $axios.onRequest(config => {
-    console.log('Making request to ', config)
+    // console.log('Making request to ', config)
     return config
   })
   $axios.onResponse(res => {

@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-12 17:03:15
+ * @Last Modified time: 2019-04-02 15:07:06
  */
 /**
  * 全局store
@@ -10,6 +10,7 @@
 // import LangJson from '@/static/lang'
 
 // 函数名称统计
+const G_SET_COOKIE = 'setCookie'
 const G_SET_DIALOG = 'setDialog'
 const G_SET_USERMSG = 'setUsermsg'
 const G_SET_POPMSG = 'setPopmsg'
@@ -21,6 +22,8 @@ const DEFAULT_LOCALE = 'global'
 
 // state数据
 export const state = () => ({
+  //
+  xclubcookie: '',
   // api的前缀地址，默认从nuxt.config.js读取
   baseUrl: process.env.baseUrl || '',
   // 自身路径
@@ -78,6 +81,13 @@ export const getters = {
 
 // 同步方法
 export const mutations = {
+  /**
+   * 设置 cookie
+   * @param {string} cookie
+   */
+  [G_SET_COOKIE](state, cookie) {
+    state.xclubcookie = cookie
+  },
   /**
    * 设置 国家列表信息
    * @param {array} list -> 国家列表信息
@@ -144,7 +154,7 @@ export const actions = {
     Url
   }) {
     console.log('服务器初始化，开始加载国家')
-    console.log(req.session)
+    console.log(req.session, req.sessionID)
     await dispatch('getCountryList')
     // 从路由获取当前国家
     let LangJson = getters.formatCountryList
@@ -155,8 +165,11 @@ export const actions = {
       // 判定是否存在个人usermsg
       if (req.session.usermsg) {
         commit(G_SET_USERMSG, req.session.usermsg)
+      }
+      if (req.session.xclubcookie) {
+        commit(G_SET_COOKIE, req.session.xclubcookie)
         // 验证是否假登陆
-        dispatch('account/checkLogin')
+        await dispatch('account/checkLogin', { cookie: req.session.xclubcookie})
       }
     }
   },

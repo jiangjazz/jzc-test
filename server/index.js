@@ -5,8 +5,9 @@ const consola = require('consola')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
-const api = require('./api')
+const client = require('./config/redis')
 const redisOptions = require('./config/index').redisOptions
+const api = require('./api')
 
 const SocketIO = require('socket.io')
 
@@ -46,20 +47,22 @@ app.use(function (req, res, next) {
   }
 })
 
-let STORE = new RedisStore(redisOptions)
+// let STORE = new RedisStore(redisOptions)
 
 // Sessions 来创建 req.session
 app.use(session({
   name: 'xclub',
-  store: STORE,
+  store: new RedisStore({
+    client: client
+  }),
   secret: 'super-secret-key',
   resave: false,
   saveUninitialized: false,
   rolling: true,
-  genid: function(req) {
-    let id = 'xclub'
-    return id // use UUIDs for session IDs
-  },
+  // genid: function(req) {
+  //   let id = 'xclub'
+  //   return id // use UUIDs for session IDs
+  // },
   cookie: {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     secure: false

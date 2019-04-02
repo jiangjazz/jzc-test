@@ -34,12 +34,17 @@ export const actions = {
   },
   /**
    * 验证假登陆
+   * @param {string} cookie
    */
   async checkLogin({
     commit
+  }, {
+    cookie
   }) {
-    console.log('触发 验证登陆')
-    const res = await this.$axios.$post('/selfapi/account/checklogin')
+    console.log('触发 验证登陆', cookie)
+    const res = await this.$axios.$post('/selfapi/account/checklogin', {
+      cookie: cookie
+    })
     if (Number(res.code) !== 0) {
       // 假登陆状态，清除用户信息
       commit('setUsermsg', {}, {root: true})

@@ -2,13 +2,13 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:17:24 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-27 19:41:42
+ * @Last Modified time: 2019-04-02 14:52:56
  */
 const consola = require('consola')
 const Router = require('express').Router
 const router = Router()
 const client = require('../config/redis')
-const axios = require('../config/axios').axios
+// const axios = require('../config/axios').axios
 const formatCookie = require('../common/methods').formatCookie
 
 const common = require('./common')
@@ -22,15 +22,9 @@ const upload = require('./upload')
  */
 router.use(function (req, res, next) {
   console.log('before', req.url, req.method)
+  console.log('before', req.session, req.sessionID)
   // 挂载redis
   req.client = client
-  // 自动发送cookie
-  let xclubcookie = req.session.xclubcookie
-  if (xclubcookie) {
-    axios.defaults.headers.Cookie = xclubcookie
-  } else {
-    axios.defaults.headers.Cookie = ''
-  }
   next()
 })
 

@@ -29,7 +29,7 @@ Axios.interceptors.request.use(function (config) {
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
-  console.log(config, 12312312321)
+  // console.log(config, 12312312321)
   return config
 }, function (error) {
 
@@ -113,7 +113,7 @@ module.exports = {
 
   //GET 请求方式
   get(url, paramsObj = {}, config={}) {
-    console.log('get', paramsObj)
+    console.log('get', paramsObj, config)
 
     let key
     let {
@@ -136,8 +136,9 @@ module.exports = {
 
     return new Promise((resolve, reject) => {
       Axios.get(url, {
-          params: params
-        }, config).then(response => {
+          params: params,
+          ...config
+        }).then(response => {
 
           if (cache && response.data) {
             let { code, success } = response.data

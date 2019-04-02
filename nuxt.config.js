@@ -119,9 +119,10 @@ module.exports = {
     baseURL: serverHttp,
     browserBaseURL: '',
     credentials: false,
-    proxy: {
-      '/selfapi': serverHttp
-    },
+    proxy: true,
+    // proxy: {
+    //   '/selfapi': serverHttp
+    // },
     debug: false,
     retry: {
       retries: 3

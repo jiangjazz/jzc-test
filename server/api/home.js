@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-08 10:46:16 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 16:28:32
+ * @Last Modified time: 2019-04-02 14:41:27
  */
 
 const Router = require('express').Router
@@ -22,6 +22,10 @@ router.post('/home/getbanner', (req, res, next) => {
       cache: true,
       maxAge: 1000 * 60,
       fid
+    }, {
+      headers: {
+        'Cookie': req.session.xclubcookie || ''
+      }
     }).then(e => {
 
       if (Number(e.status) === 200 && Number(e.data.success) === 1) {
@@ -59,6 +63,10 @@ router.post('/home/getrecomlist', (req, res, next) => {
       fid,
       limit,
       page
+    }, {
+      headers: {
+        'Cookie': req.session.xclubcookie || ''
+      }
     }).then(e => {
 
       if (Number(e.status) === 200 && Number(e.data.success) === 1) {
@@ -73,7 +81,7 @@ router.post('/home/getrecomlist', (req, res, next) => {
       }
     })
     .catch(err => {
-      
+
       return res.json(err)
     })
 })

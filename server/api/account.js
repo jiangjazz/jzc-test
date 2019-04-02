@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-11-05 10:18:12 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 19:59:38
+ * @Last Modified time: 2019-04-02 15:25:05
  */
 
 const Router = require('express').Router
@@ -26,6 +26,10 @@ router.post('/account/login', (req, res, next) => {
       loginsubmit,
       username,
       password
+    }, {
+      headers: {
+        'Cookie': req.session.xclubcookie || ''
+      }
     }).then(e => {
 
       if (Number(e.status) === 200 && Number(e.data.code) === 0) {
@@ -56,11 +60,15 @@ router.post('/account/login', (req, res, next) => {
  * 验证是否登陆，若已登陆则返还个人信息
  */
 router.post('/account/checklogin', (req, res, next) => {
+  let {
+    cookie
+  } = req.body
 
-  APIS.ACCOUNT_CHECKLOGIN({
-      cache: true
+  APIS.ACCOUNT_CHECKLOGIN({}, {
+      headers: {
+        'Cookie': cookie
+      }
     }).then(e => {
-
       if (Number(e.status) === 200 && Number(e.data.code) === 0) {
         // 挂载信息并传递
         req.xclub = e
@@ -85,7 +93,11 @@ router.post('/account/checklogin', (req, res, next) => {
  */
 router.post('/account/logout', (req, res, next) => {
 
-  APIS.ACCOUT_LOGOUT().then(e => {
+  APIS.ACCOUT_LOGOUT({}, {
+      headers: {
+        'Cookie': req.session.xclubcookie || ''
+      }
+    }).then(e => {
 
       // 清除个人信息
       delete req.session.xclubcookie
