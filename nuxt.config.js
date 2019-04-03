@@ -39,6 +39,14 @@ module.exports = {
     color: '#fff'
   },
 
+  /**
+   * 组件缓存
+   */
+  cache: {
+    max: 1000, // 缓存组件数
+    maxAge: 900000 // 缓存时间
+  },
+
   /*
    ** Global CSS
    */
@@ -51,8 +59,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    {
+  plugins: [{
       src: '@/plugins/wangeditor',
       ssr: false
     },
@@ -127,7 +134,9 @@ module.exports = {
     retry: {
       retries: 3
     },
-    requestInterceptor: (config, {store}) => {
+    requestInterceptor: (config, {
+      store
+    }) => {
       config.headers.common['Authorization'] = '';
       config.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;application/json';
       return config

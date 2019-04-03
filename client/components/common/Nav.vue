@@ -2,10 +2,10 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:00 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-08 10:23:42
+ * @Last Modified time: 2019-04-03 10:03:30
  */
 <template>
-  <v-tabs class="m-nav" :value="active" color="white" slider-color="green" fixed-tabs grow>
+  <v-tabs class="m-nav" :value="active" color="white" slider-color="green" grow>
     <!-- <v-tab v-for="item in items" :key="item.label" :to="item.to">
       {{ item.label }}
     </v-tab> -->
@@ -22,9 +22,11 @@ export default {
     return {
       //
       items: [
-        { to: '/', label: 'Home' },
+        { to: '/', label: 'For you' },
+        { to: '/topicmall', label: 'Topic mall' },
+        { to: '/ranking', label: 'Ranking' },
         { to: '/latest', label: 'Latest' },
-        { to: '/forum', label: 'Forum' }
+        { to: '/task', label: 'Task' }
       ]
     }
   },

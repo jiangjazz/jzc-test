@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:49:07 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-11 15:00:06
+ * @Last Modified time: 2019-04-03 10:04:27
  */
 <template>
   <v-toolbar :class="className" :clipped-left="false">
@@ -41,7 +41,7 @@ export default {
     // 标题
     title: {
       type: String,
-      default: 'Infinix'
+      default: 'Xclub'
     }
   },
   data() {
