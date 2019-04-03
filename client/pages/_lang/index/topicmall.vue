@@ -1,5 +1,5 @@
 <template>
-  <AppScroll :pullUp="pullUp" :size="recomLimit" :count="Number(recomCount)">
+  <AppScroll ref="indexScroll" :pullUp="pullUp" :size="recomLimit" :count="Number(recomCount)">
     <HomeRecomList />
   </AppScroll>
 </template>
@@ -13,9 +13,9 @@ export default {
   components: {
     HomeRecomList
   },
-  async fetch({ store }) {
-    await store.dispatch('home/getRecomList', {})
-  },
+  // async fetch({ store }) {
+  //   await store.dispatch('home/getRecomList', {})
+  // },
   computed: {
     ...mapState('home', ['recomList', 'recomCount', 'recomLimit'])
   },
@@ -27,7 +27,7 @@ export default {
      */
     async pullUp({ num, size }) {
       let resStatus = await this.$store.dispatch('home/getRecomList', {
-        page: num + 1,
+        page: num,
         isMobile: true
       })
 
@@ -39,6 +39,23 @@ export default {
         }
       })
     }
+  },
+  // keep alive组件在切换时滚动至相应位置
+  activated() {
+    let indexScroll = this.$refs.indexScroll
+    if (indexScroll) {
+      indexScroll.beforeRouteEnter()
+    }
+  },
+  // keep alive组件在切换时记录当前位置信息
+  deactivated() {
+    let indexScroll = this.$refs.indexScroll
+    if (indexScroll) {
+      indexScroll.beforeRouteLeave()
+    }
+  },
+  mounted() {
+    this.$store.dispatch('home/getRecomList', {})
   }
 }
 </script>

@@ -114,6 +114,7 @@ module.exports = {
             selector: to.hash
           }
         }
+        console.log('%c scrollBehavior', 'background: red;', position)
         return position
       }
     }

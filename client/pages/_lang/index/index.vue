@@ -1,7 +1,7 @@
 <template>
-  <AppScroll :pullUp="pullUp" :size="recomLimit" :count="Number(recomCount)">
+  <AppScroll ref="indexScroll" :pullUp="pullUp" :size="recomLimit" :count="Number(recomCount)">
     <HomeBanner />
-    <HomeRecomList />
+    <HomeRecomList ref="list" />
   </AppScroll>
 </template>
 
@@ -16,10 +16,10 @@ export default {
     HomeBanner,
     HomeRecomList
   },
-  async fetch({ store }) {
-    await store.dispatch('home/getBannerList')
-    await store.dispatch('home/getRecomList', {})
-  },
+  // async fetch({ store }) {
+  //   await store.dispatch('home/getBannerList')
+  //   await store.dispatch('home/getRecomList', {})
+  // },
   computed: {
     ...mapState('home', ['recomList', 'recomCount', 'recomLimit'])
   },
@@ -41,6 +41,24 @@ export default {
         }
       })
     }
+  },
+  // keep alive组件在切换时滚动至相应位置
+  activated() {
+    let indexScroll = this.$refs.indexScroll
+    if (indexScroll) {
+      indexScroll.beforeRouteEnter()
+    }
+  },
+  // keep alive组件在切换时记录当前位置信息
+  deactivated() {
+    let indexScroll = this.$refs.indexScroll
+    if (indexScroll) {
+      indexScroll.beforeRouteLeave()
+    }
+  },
+  mounted() {
+    this.$store.dispatch('home/getBannerList')
+    this.$store.dispatch('home/getRecomList', {})
   }
 }
 </script>

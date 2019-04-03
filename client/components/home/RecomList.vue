@@ -2,13 +2,13 @@
  * @Author: Janzen 
  * @Date: 2019-03-09 15:49:31 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-04-03 10:41:05
+ * @Last Modified time: 2019-04-03 15:23:32
  */
 <template>
-  <section class="recomList">
+  <section class="recomList" id="recomList">
     <v-card v-for="item in recomList" :key="`${item.tid}`">
       <AppLink :to="`/forum/${item.fid}/${item.tid}`">
-        <v-img :src="`${baseUrl}/${item.mpic}`" :alt="item.discribe"></v-img>
+        <v-img :src="`${baseUrl}/${item.mpic}`" lazy-src="./images/home/lazyload.png" :alt="item.discribe"></v-img>
       </AppLink>
       <v-card-title>{{ item.title }}</v-card-title>
       <v-card-actions>

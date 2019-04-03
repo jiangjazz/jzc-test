@@ -11,8 +11,10 @@
 <script>
 // 引入mescroll的vue组件
 import MescrollVue from 'mescroll.js/mescroll.vue'
+import { nextTick } from 'q';
 
 export default {
+  name: 'app_scroll',
   props: {
     // 每页数据条数,默认10
     size: {
@@ -56,13 +58,14 @@ export default {
           size: this.size //每页数据条数,默认10
           // size: 10 //每页数据条数,默认10
         },
-        htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">Loading...</p>',
+        htmlLoading:
+          '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">Loading...</p>',
         htmlNodata: '<p class="upwarp-nodata">No more data</p>',
         noMoreSize: 5, //如果列表已无数据,可设置列表总数大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
         toTop: {
           //回到顶部按钮
-          src: './static/mescroll/mescroll-totop.png', //图片路径,默认null,支持网络图
-          offset: 1000 //列表滚动1000px才显示回到顶部按钮
+          src: './images/user_default.gif', //图片路径,默认null,支持网络图
+          offset: 100 //列表滚动1000px才显示回到顶部按钮
         }
         // empty: {
         //   //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
@@ -74,22 +77,35 @@ export default {
       dataList: [] // 列表数据
     }
   },
-  beforeRouteEnter(to, from, next) {
-    console.log(this.mescroll.lastScrollTop)
-    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
-    next(vm => {
-      // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
-      vm.$refs.mescroll && vm.$refs.mescroll.beforeRouteEnter() // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log(this.mescroll.lastScrollTop)
-    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
-    // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
-    this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave() // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
-    next()
-  },
   methods: {
+    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
+    // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
+    // 进入路由时,滚动到原来的列表位置,恢复回到顶部按钮和isBounce的配置
+    beforeRouteEnter() {
+      if (this.mescroll) {
+        // 恢复到之前设置的isBounce状态
+        if (this.mescroll.lastBounce != null)
+          this.mescroll.setBounce(this.mescroll.lastBounce)
+        // 滚动到之前列表的位置 (注意:路由使用keep-alive才生效)
+        if (this.mescroll.lastScrollTop) {
+          this.mescroll.setScrollTop(this.mescroll.lastScrollTop)
+          setTimeout(() => {
+            // 需延时,因为setScrollTop内部会触发onScroll,可能会渐显回到顶部按钮
+            this.mescroll.setTopBtnFadeDuration(0) // 设置回到顶部按钮显示时无渐显动画
+          }, 16)
+        }
+      }
+    },
+    // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
+    // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
+    beforeRouteLeave() {
+      if (this.mescroll) {
+        this.mescroll.lastBounce = this.mescroll.optUp.isBounce // 记录当前是否禁止ios回弹
+        this.mescroll.setBounce(true) // 允许bounce
+        this.mescroll.lastScrollTop = this.mescroll.getScrollTop() // 记录当前滚动条的位置
+        this.mescroll.hideTopBtn(0) // 隐藏回到顶部按钮,无渐隐动画
+      }
+    },
     // mescroll组件初始化的回调,可获取到mescroll对象 (如果this.mescroll并没有使用到,可不用写mescrollInit)
     mescrollInit(mescroll) {
       this.mescroll = mescroll
@@ -97,7 +113,8 @@ export default {
     // 上拉回调 page = {num:1, size:10}; num:当前页 ,默认从1开始; size:每页数据条数,默认10
     upCallback(page, mescroll) {
       let _this = this
-      let hasNext = (page.num) * this.size < this.count
+      let hasNext = page.num * this.size < this.count
+      console.log(page.num, this.size, this.count)
       this.pullUp(page)
         .then(res => {
           // 数据渲染成功后,隐藏下拉刷新的状态
