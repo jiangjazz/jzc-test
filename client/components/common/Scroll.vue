@@ -4,10 +4,6 @@
     <!--内容...-->
     <div>
       <slot></slot>
-      <!-- <div v-for="(item, index) in dataList" :key="index">
-        {{item}}
-        <br /><br />
-      </div> -->
     </div>
   </mescroll-vue>
 </template>
@@ -32,7 +28,7 @@ export default {
     // 上拉加载数据函数
     pullUp: {
       type: Function,
-      required: true,
+      // required: true,
       default() {
         return () => {}
       }
@@ -79,6 +75,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
+    console.log(this.mescroll.lastScrollTop)
     // 如果没有配置回到顶部按钮或isBounce,则beforeRouteEnter不用写
     next(vm => {
       // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteEnter方法
@@ -86,6 +83,7 @@ export default {
     })
   },
   beforeRouteLeave(to, from, next) {
+    console.log(this.mescroll.lastScrollTop)
     // 如果没有配置回到顶部按钮或isBounce,则beforeRouteLeave不用写
     // 找到当前mescroll的ref,调用子组件mescroll-vue的beforeRouteLeave方法
     this.$refs.mescroll && this.$refs.mescroll.beforeRouteLeave() // 退出路由时,记录列表滚动的位置,隐藏回到顶部按钮和isBounce的配置
@@ -100,12 +98,10 @@ export default {
     upCallback(page, mescroll) {
       let _this = this
       let hasNext = (page.num) * this.size < this.count
-      console.log(page.num, page.size, this.count, 888888)
       this.pullUp(page)
         .then(res => {
           // 数据渲染成功后,隐藏下拉刷新的状态
           _this.$nextTick(() => {
-            console.log(res.length, this.count, 77777)
             mescroll.endSuccess(res.length, hasNext)
           })
         })

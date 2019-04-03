@@ -27,12 +27,10 @@ export default {
     /**
      * 上拉或者刷新加载数据
      * @param {number} num 当前页码
-     * @param {number} size 每页个数
      */
-    async pullUp({ num, size }) {
+    async pullUp({ num }) {
       let resStatus = await this.$store.dispatch('home/getRecomList', {
-        page: num,
-        isMobile: true
+        page: num
       })
 
       return new Promise((resolve, reject) => {
