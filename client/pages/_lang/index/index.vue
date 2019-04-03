@@ -16,10 +16,9 @@ export default {
     HomeBanner,
     HomeRecomList
   },
-  async fetch({ store, query }) {
-    let { page = 1 } = query
+  async fetch({ store }) {
     await store.dispatch('home/getBannerList')
-    await store.dispatch('home/getRecomList', { page })
+    await store.dispatch('home/getRecomList', {})
   },
   computed: {
     ...mapState('home', ['recomList', 'recomCount', 'recomLimit'])
@@ -32,7 +31,7 @@ export default {
      */
     async pullUp({ num, size }) {
       let resStatus = await this.$store.dispatch('home/getRecomList', {
-        page: num + 1,
+        page: num,
         isMobile: true
       })
 

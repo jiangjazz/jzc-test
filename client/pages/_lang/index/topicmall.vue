@@ -13,9 +13,8 @@ export default {
   components: {
     HomeRecomList
   },
-  async fetch({ store, query }) {
-    let { page = 1 } = query
-    await store.dispatch('home/getRecomList', { page })
+  async fetch({ store }) {
+    await store.dispatch('home/getRecomList', {})
   },
   computed: {
     ...mapState('home', ['recomList', 'recomCount', 'recomLimit'])

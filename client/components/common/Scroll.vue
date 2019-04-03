@@ -44,7 +44,11 @@ export default {
   data() {
     return {
       mescroll: null, // mescroll实例对象
-      mescrollDown: {}, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
+      mescrollDown: {
+        textInOffset: 'Pull Down To Refresh', // 下拉的距离在offset范围内的提示文本
+        textOutOffset: 'Release To Refresh', // 下拉的距离大于offset范围的提示文本
+        textLoading: 'Loading' // 加载中的提示文本
+      }, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
       mescrollUp: {
         // 上拉加载的配置.
         callback: this.upCallback, // 上拉回调,此处可简写; 相当于 callback: function (page, mescroll) { getListData(page); }
@@ -52,11 +56,12 @@ export default {
         // 是否在初始化完毕之后自动执行一次下拉刷新的回调
         auto: false,
         page: {
-          num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+          num: 1, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
           size: this.size //每页数据条数,默认10
           // size: 10 //每页数据条数,默认10
         },
-        htmlNodata: '<p class="upwarp-nodata">亲,没有更多数据了~</p>',
+        htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">Loading...</p>',
+        htmlNodata: '<p class="upwarp-nodata">No more data</p>',
         noMoreSize: 5, //如果列表已无数据,可设置列表总数大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
         toTop: {
           //回到顶部按钮
@@ -94,12 +99,14 @@ export default {
     // 上拉回调 page = {num:1, size:10}; num:当前页 ,默认从1开始; size:每页数据条数,默认10
     upCallback(page, mescroll) {
       let _this = this
-      let hasNext = (page.num + 1) * this.size < this.count
+      let hasNext = (page.num) * this.size < this.count
+      console.log(page.num, page.size, this.count, 888888)
       this.pullUp(page)
         .then(res => {
           // 数据渲染成功后,隐藏下拉刷新的状态
           _this.$nextTick(() => {
-            mescroll.endBySize(res.length, this.count)
+            console.log(res.length, this.count, 77777)
+            mescroll.endSuccess(res.length, hasNext)
           })
         })
         .catch(err => {

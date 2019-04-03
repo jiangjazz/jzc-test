@@ -2,11 +2,11 @@
  * @Author: Janzen 
  * @Date: 2019-03-09 15:49:31 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-03-10 15:16:24
+ * @Last Modified time: 2019-04-03 10:41:05
  */
 <template>
   <section class="recomList">
-    <v-card v-for="item in recomList" :key="`${item.fid}${item.tid}`">
+    <v-card v-for="item in recomList" :key="`${item.tid}`">
       <AppLink :to="`/forum/${item.fid}/${item.tid}`">
         <v-img :src="`${baseUrl}/${item.mpic}`" :alt="item.discribe"></v-img>
       </AppLink>

@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const client = require('./config/redis')
-const redisOptions = require('./config/index').redisOptions
 const api = require('./api')
 
 const SocketIO = require('socket.io')
@@ -47,8 +46,6 @@ app.use(function (req, res, next) {
   }
 })
 
-// let STORE = new RedisStore(redisOptions)
-
 // Sessions 来创建 req.session
 app.use(session({
   name: 'xclub',
@@ -59,10 +56,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   rolling: true,
-  // genid: function(req) {
-  //   let id = 'xclub'
-  //   return id // use UUIDs for session IDs
-  // },
   cookie: {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     secure: false
@@ -87,24 +80,14 @@ async function start() {
   app.use(nuxt.render)
   
   // Listen the server
-  // app.listen(port, host)
   server.listen(port, host)
+
+  // Socket.io
+  require('./socket/index')(io)
+
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
   })
 }
 start()
-
-// Socket.io
-require('./socket/index')(io)
-// const messages = []
-// io.on('connection', (socket) => {
-//   socket.on('last-messages', function (fn) {
-//     fn(messages.slice(-50))
-//   })
-//   socket.on('send-message', function (message) {
-//     messages.push(message)
-//     socket.broadcast.emit('new-message', message)
-//   })
-// })
