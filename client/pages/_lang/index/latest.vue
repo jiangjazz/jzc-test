@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="page-latest hasNavHeader">
     <v-layout justify-center>
       <v-btn type="success" @click.stop="checkLogin">CheckLogin</v-btn>
       <AppEditor></AppEditor>

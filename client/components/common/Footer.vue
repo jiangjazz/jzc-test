@@ -2,10 +2,10 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-04-04 12:22:08
+ * @Last Modified time: 2019-04-04 12:57:17
  */
 <template>
-  <v-bottom-nav :class="className" :value="true" fixed color="white">
+  <v-bottom-nav :class="className" :value="true" fixed height="48px" color="white">
     <v-btn color="teal" flat :to="`${preLink}/`" value="foryou">
       <span>foryou</span>
       <v-icon v-text="$vuetify.icons.home"></v-icon>

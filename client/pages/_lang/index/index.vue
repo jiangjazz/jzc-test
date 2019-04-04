@@ -1,5 +1,5 @@
 <template>
-  <AppScroll ref="indexScroll" :pullUp="pullUp" :size="recomLimit" :count="Number(recomCount)">
+  <AppScroll class="page-foryou hasNavHeader" ref="indexScroll" :pullUp="pullUp" :size="recomLimit" :count="Number(recomCount)">
     <HomeBanner />
     <HomeRecomList ref="list" />
   </AppScroll>

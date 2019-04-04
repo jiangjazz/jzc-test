@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-ranking hasNavHeader">
     ranking
   </div>
 </template>

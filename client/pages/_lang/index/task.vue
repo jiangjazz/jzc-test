@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-task hasNavHeader">
     task
   </div>
 </template>
