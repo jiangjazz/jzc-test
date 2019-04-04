@@ -4,12 +4,10 @@
 // 函数名称统计'
 
 // state数据
-export const state = () => ({
-})
+export const state = () => ({})
 
 // 同步方法 mutations
-export const mutations = {
-}
+export const mutations = {}
 
 // action
 export const actions = {
@@ -47,7 +45,9 @@ export const actions = {
     })
     if (Number(res.code) !== 0) {
       // 假登陆状态，清除用户信息
-      commit('setUsermsg', {}, {root: true})
+      commit('setUsermsg', {}, {
+        root: true
+      })
     }
   },
   /**
@@ -57,6 +57,15 @@ export const actions = {
     commit
   }) {
     console.log('触发 退出登陆')
-    return this.$axios.$post('/selfapi/account/logout')
+    const res = this.$axios.$post('/selfapi/account/logout')
+    commit('setUsermsg', {}, {
+      root: true
+    })
+    commit('setPopmsg', {
+      type: 'success',
+      msg: res.msg
+    }, {
+      root: true
+    })
   }
 }
