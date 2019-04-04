@@ -2,10 +2,10 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:49:07 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-04-03 10:04:27
+ * @Last Modified time: 2019-04-04 11:28:30
  */
 <template>
-  <v-toolbar :class="className" :clipped-left="false">
+  <v-toolbar :class="className" :clipped-left="false" fixed>
     <!-- 左功能按钮 -->
     <slot :className="className" :mclass="`${className}_left`" name="left">
       <v-btn icon>

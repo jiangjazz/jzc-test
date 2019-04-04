@@ -130,16 +130,3 @@ export default {
   }
 }
 </script>
-
-<style scope>
-/*以fixed的方式固定mescroll的高度*/
-.mescroll {
-  position: absolute;
-  top: 104px;
-  bottom: 0;
-  height: auto;
-}
-.page-test:after {
-  clear: both;
-}
-</style>

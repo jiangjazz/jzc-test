@@ -2,7 +2,7 @@
  * @Author: Janzen 
  * @Date: 2018-05-25 09:14:18 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-04-02 15:07:06
+ * @Last Modified time: 2019-04-04 11:47:03
  */
 /**
  * 全局store
@@ -60,7 +60,7 @@ export const getters = {
   },
   // 国家id
   fid(state) {
-    return state.country.fid || null
+    return state.country.fid || 1
   },
   // 格式化国家列表
   formatCountryList(state) {
