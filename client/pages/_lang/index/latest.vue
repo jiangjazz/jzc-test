@@ -1,9 +1,7 @@
 <template>
   <v-container class="page-latest hasNavHeader">
-    <v-layout justify-center>
-      <v-btn type="success" @click.stop="checkLogin">CheckLogin</v-btn>
-      <AppEditor></AppEditor>
-    </v-layout>
+    <v-btn type="success" @click.stop="checkLogin">CheckLogin</v-btn>
+    <AppEditor></AppEditor>
   </v-container>
 </template>
 <script>
