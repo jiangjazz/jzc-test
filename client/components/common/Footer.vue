@@ -2,15 +2,16 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:51:54 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-04-04 15:41:19
+ * @Last Modified time: 2019-04-04 16:13:23
  */
 <template>
-  <div class="v-item-group v-bottom-nav theme--light v-bottom-nav--fixed v-bottom-nav--active white m-footer">
-    <v-btn v-for="item in items" :key="item.name" :class="{'v-btn--active': isActive(item)}" color="teal" flat :to="item.to" exact>
+  <v-bottom-nav :class="className" :value="true" fixed height="48px" color="white">
+    <v-btn v-for="item in items" :key="item.name" :class="{'v-btn--active': isActive(item)}" color="teal" flat :to="item.to"
+      exact>
       <span>{{ item.name }}</span>
       <v-icon v-text="$vuetify.icons[item.icon]"></v-icon>
     </v-btn>
-  </div>
+  </v-bottom-nav>
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
