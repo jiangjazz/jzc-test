@@ -2,10 +2,10 @@
  * @Author: Janzen 
  * @Date: 2019-03-04 18:52:00 
  * @Last Modified by: Janzen
- * @Last Modified time: 2019-04-04 11:52:52
+ * @Last Modified time: 2019-04-04 12:11:54
  */
 <template>
-  <v-tabs class="m-nav" :value="active" color="white" slider-color="green" grow fixed>
+  <v-tabs class="m-nav" :value="active" color="white" slider-color="green" grow>
     <v-tab v-for="item in items" :key="item.label" :to="`${preLink}${item.to}`">
       {{ item.label }}
     </v-tab>
